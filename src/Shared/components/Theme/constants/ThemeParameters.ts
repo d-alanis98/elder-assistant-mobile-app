@@ -1,0 +1,42 @@
+import store from "../../../store/store";
+import { darkTheme, lightTheme } from "./theme";
+
+
+/**
+ * @author Damián Alanís Ramírez
+ * @version 1.1.1
+ * @description Theme parameters specification and default values.
+ */
+export interface ThemeParameters {
+    //Main UI colors
+    fontColor: string;
+    backgroundColor: string;
+    //Emphasis
+    alertColor: string;
+    successColor: string;
+    primaryColor: string;
+    warningColor: string;
+    secondaryColor: string;
+    informationColor: string;
+}
+
+export interface ThemeContextParameters {
+    theme: ThemeParameters;
+    setTheme: (theme: ThemeParameters) => void;
+}
+
+export const defaultThemeParameters: ThemeParameters = {
+    fontColor: '#333',
+    backgroundColor: '#ffffff',
+    alertColor: '#d9534f',
+    successColor: '#5cb85c',
+    primaryColor: '#0275d8',
+    warningColor: '#f0ad4e',
+    secondaryColor: '#aaaaaa',
+    informationColor: '#5bc0de'
+};
+
+export enum ValidThemes {
+    DARK_THEME = 'DARK_THEME',
+    LIGHT_THEME = 'LIGHT_THEME',
+}
