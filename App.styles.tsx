@@ -13,7 +13,7 @@ const styles = {
     },
     scrollContainer: {
         height: screenHeight - NAVIGATION_BAR_HEIGHT ,
-        padding: '0.5rem',
+        padding: 9,
     },
     text: {
         fontSize: 20,

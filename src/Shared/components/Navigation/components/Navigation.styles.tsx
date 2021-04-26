@@ -8,7 +8,7 @@ export const NavigationContainer = styled.View`${({ theme }) => `
     align-items: center;
     flex-direction: row;
     justify-content: space-around;
-    padding: 0.5rem;
+    padding: 10px;
     color: ${ theme.fontColor }
     background-color: ${ theme.secondaryColor }
 `}`;

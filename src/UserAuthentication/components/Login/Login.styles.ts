@@ -6,41 +6,40 @@ import { darkTheme } from '../../../Shared/components/Theme/constants/theme';
 export const LoginContainer = styled.View`
     flex: 1;
     flex-direction: column;
-    padding: 1rem;
+    padding: 20px;
     background-color: #457b9d;
 `;
 
 export const LoginFormContainer = styled.View`
     background-color: rgba(255,255,255,0.85);
-    padding: 1.5rem 0.75rem;
-    border-radius: 0.5rem;
+    padding: 30px 15px;
+    border-radius: 10px;
     z-index: 90;
 `;
 
 
 export const LoginInput = styled.TextInput`${({ theme }) => `
     width: 100%;
-    height: 3rem;
+    height: 60px;
     color: ${ theme.fontColor }
     background-color: ${ theme.fontColor === darkTheme.fontColor 
         ? 'rgba(255,255,255, 0.09)'
         : 'rgba(0,0,0,0.05)'
     };
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-    margin-bottom: 0.75rem;
-    font-size: 1rem;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 20px;
 `}`;
 
 const illustrationSize = screenWidth / 1.5;
 export const LoginIllustration = styled.Image`
     position: absolute;
-    bottom: -35;
+    bottom: -35px;
     left: 0;
     right: 0;
     justify-content: center;
-    height: ${ illustrationSize };
-    width: ${ illustrationSize };
-    margin-right: 0.25rem;
+    height: ${ illustrationSize }px;
+    width: ${ illustrationSize }px;
     z-index: 10;
 `

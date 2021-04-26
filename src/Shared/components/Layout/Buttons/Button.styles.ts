@@ -11,10 +11,10 @@ export const StyledButton = styled.TouchableOpacity<ButtonProps>`${props => `
     align-items: center;
     justify-content: center;
     width: ${ props.width || '100%' };
-    height: ${ props.height || '2.25rem'};
+    height: ${ props.height || '50px'};
     margin: ${ props.margin || '0'};
     background-color: ${ getBackgroundColorByType(props) };
-    border-radius: ${ props.borderRadius || '0.25rem'};
+    border-radius: ${ props.borderRadius || '5px'};
 `}`;
 
 const getBackgroundColorByType = (props: any) => {
@@ -44,5 +44,5 @@ interface ButtonTextProps extends TextProps {
 export const StyledButtonText = styled.Text<ButtonTextProps>`${({ theme, fontSize }) => `
     color: ${ theme.backgroundColor };
     font-family: sans-serif;
-    fontSize: ${ fontSize || '1.05rem'};
+    fontSize: ${ fontSize || '22px'};
 `}`;

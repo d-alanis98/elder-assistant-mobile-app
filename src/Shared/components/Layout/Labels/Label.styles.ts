@@ -16,6 +16,6 @@ export const StyledLabel = styled.Text.attrs((props: LabelProps) => ({
 }) => `
     color: ${ color || theme.fontColor };
     margin: ${ margin || '0' };
-    font-size: ${ fontSize || '1rem' };
+    font-size: ${ fontSize || '20px' };
     font-weight: ${ fontWeight || 'normal' };
 `}`;

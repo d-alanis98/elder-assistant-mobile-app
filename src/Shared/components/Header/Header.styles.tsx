@@ -14,20 +14,20 @@ export const HeaderContainer = styled.View`${({ theme }) => `
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    padding: 0.5rem 1rem;
-    height: ${ HEADER_HEIGHT };
+    padding: 10px 20px;
+    height: ${ HEADER_HEIGHT }px;
     background-color: ${ theme.secondaryColor };
 `}`;
 
 export const HeaderTitle = styled.Text`${({ theme }) => `
     color: ${ theme.secondaryFontColor };
-    font-size: 1.25rem;
+    font-size: 20px;
 `}`;
 
 const logoSize = HEADER_HEIGHT - 10;
 
 export const HeaderLogo = styled.Image`
-    height: ${ logoSize};
-    width: ${ logoSize };
-    margin-right: 0.25rem;
+    height: ${ logoSize}px;
+    width: ${ logoSize }px;
+    margin-right: 5px;
 `;

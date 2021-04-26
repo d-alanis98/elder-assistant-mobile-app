@@ -8,8 +8,6 @@ import { loginAction } from '../../../Shared/store/reducers/userDuck';
 import { useAppDispatch } from '../../../Shared/store/hooks';
 //Styled components
 import { LoginContainer, LoginFormContainer, LoginIllustration, LoginInput } from './Login.styles';
-import { Image } from 'react-native';
-import { NAVIGATION_BAR_HEIGHT } from '../../../Shared/components/Navigation/components/Navigation.styles';
 
 const Login: React.FC = () => {
     //Hooks
@@ -19,6 +17,7 @@ const Login: React.FC = () => {
     const [credentials, setCredentials] = useState<Credentials>(initialCredentials);
 
     const submit = useCallback(() => {
+        console.log('Submitting')
         dispatch(loginAction(credentials));
     }, [credentials]);
 
@@ -62,9 +61,9 @@ export default Login;
 //Internal components
 const FormLabel: React.FC = ({ children }) => (
     <Label 
-        fontSize = '1.05rem'
+        fontSize = '22px'
         fontWeight = 'bold'
-        style = {{ marginTop: '1rem', marginBottom: '0.5rem' }}
+        style = {{ marginTop: 20, marginBottom: 10 }}
     > 
     { children }
     </Label>
@@ -82,7 +81,7 @@ const FormSubmitButton: React.FC<SubmitButtonProps> = ({
     <Button 
         type = { ButtonTypes.PRIMARY }
         width = '75%'
-        margin = '1rem'
+        margin = '20px'
         onPress = { submit }
         disabled = { !credentials.email || !credentials.password }
         accessibilityLabel = 'Enviar formulario de login'

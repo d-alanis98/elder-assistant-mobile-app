@@ -45,7 +45,7 @@ export default NavigationItem;
 
 
 const iconDefaults = {
-    size: '1rem',
+    size: 20,
     color: '#aaaaaa',
 };
 
@@ -56,10 +56,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        padding: '0.25rem',
+        padding: 5,
     },
     sectionlabel: {
         color: '#aaaaaa',
-        marginTop: '0.25rem',
+        marginTop: 5,
     }
 })

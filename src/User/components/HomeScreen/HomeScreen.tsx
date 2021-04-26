@@ -10,7 +10,7 @@ const HomeScreen: React.FC = () => {
     return (
         <ScreenContainer>
             <View
-                style={{paddingBottom: '5rem'}}
+                style={{paddingBottom: 30}}
             >
             {
                 Array.from(new Array(70)).map((_, index) => (
