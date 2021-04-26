@@ -10,13 +10,14 @@ export const lightTheme: DefaultTheme = defaultThemeParameters;
 
 export const darkTheme: DefaultTheme = {
     fontColor: '#ffffff',
-    backgroundColor: '#333',
+    backgroundColor: '#444',
     alertColor: '#d9534f',
     successColor: '#5cb85c',
     primaryColor: '#0275d8',
     warningColor: '#f0ad4e',
-    secondaryColor: '#aaaaaa',
-    informationColor: '#5bc0de'
+    secondaryColor: '#333',
+    informationColor: '#5bc0de',
+    secondaryFontColor: '#aaaaaa'
 }
 
 export const themeToApply = (theme: ValidThemes): ThemeParameters => {

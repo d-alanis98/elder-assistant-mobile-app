@@ -18,6 +18,7 @@ export interface ThemeParameters {
     warningColor: string;
     secondaryColor: string;
     informationColor: string;
+    secondaryFontColor: string;
 }
 
 export interface ThemeContextParameters {
@@ -32,8 +33,9 @@ export const defaultThemeParameters: ThemeParameters = {
     successColor: '#5cb85c',
     primaryColor: '#0275d8',
     warningColor: '#f0ad4e',
-    secondaryColor: '#aaaaaa',
-    informationColor: '#5bc0de'
+    secondaryColor: '#f8f9fa',
+    informationColor: '#5bc0de',
+    secondaryFontColor: '#aaaaaa',
 };
 
 export enum ValidThemes {

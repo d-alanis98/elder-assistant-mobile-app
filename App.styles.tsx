@@ -2,18 +2,23 @@ import { StyleSheet, Dimensions } from 'react-native';
 //External dimensions
 import { NAVIGATION_BAR_HEIGHT } from './src/Shared/components/Navigation/components/Navigation.styles';
 
-const styles = StyleSheet.create({
+//Dimensions
+export const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
+
+//Styles
+const styles = {
     container: {
-        height: '100%',
+        margin: 0,
+        height: screenHeight,
     },
     scrollContainer: {
-        height: Dimensions.get('window').height - NAVIGATION_BAR_HEIGHT,
+        height: screenHeight - NAVIGATION_BAR_HEIGHT ,
         padding: '0.5rem',
     },
     text: {
         fontSize: 20,
-        textAlign: 'center'
+        textAlign: 'center',
     }
-});
+};
 
 export default styles;

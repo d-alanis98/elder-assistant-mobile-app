@@ -1,11 +1,13 @@
 import { compose, createStore, applyMiddleware, combineReducers, AnyAction } from 'redux';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 //Reducers
+import userReducer, { restoreSessionAction } from './reducers/userDuck';
 import themeReducer from './reducers/themeDuck';
 
 const rootReducer = combineReducers({
+    user: userReducer,
     theme: themeReducer,
-})
+});
 
 const generateStore = () => {
     const store = createStore(
@@ -13,6 +15,7 @@ const generateStore = () => {
         compose(applyMiddleware(thunk))
     );
 
+    restoreSessionAction()(store.dispatch, store.getState, undefined);
     return store;
 }
 

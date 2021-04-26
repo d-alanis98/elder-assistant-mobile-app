@@ -5,7 +5,8 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 interface Props {
     icon: string,
-    onPress?: () => void;
+    section: string;
+    onPress?: (section: string) => void;
     iconSize?: number | string;
     iconColor?: string;
     sectionLabel?: string;
@@ -14,14 +15,15 @@ interface Props {
 
 const NavigationItem: React.FC<Props> = ({
     icon,
+    section,
     onPress,
     iconSize = iconDefaults.size,
     iconColor = iconDefaults.color,
     sectionLabel,
     showSectionLabel
-}) =>{ console.log({ iconSize  });  return (
+}) => (
     <TouchableWithoutFeedback
-        onPress = { onPress }
+        onPress = { () => onPress?.(section) }
     >
         <View style = { styles.container }>
             <FontAwesome5 
@@ -36,7 +38,7 @@ const NavigationItem: React.FC<Props> = ({
             }
         </View>
     </TouchableWithoutFeedback>
-);}
+);
 
 
 export default NavigationItem;

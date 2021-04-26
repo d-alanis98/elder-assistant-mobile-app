@@ -1,6 +1,8 @@
 import { AnyAction } from 'redux'
+//Properties
 import { themeToApply } from '../../components/Theme/constants/theme';
-import { defaultThemeParameters, ThemeParameters, ValidThemes } from '../../components/Theme/constants/ThemeParameters';
+import { ValidThemes, ThemeParameters, defaultThemeParameters } from '../../components/Theme/constants/ThemeParameters';
+//Base action type
 import { ThunkAppAction } from '../store';
 
 /**
@@ -45,7 +47,7 @@ export default reducer;
  * Action to toggle the current theme.
  * @returns New state
  */
-export let toggleThemeAction = (): ThunkAppAction  => (dispatch, getState) => {
+export let toggleThemeAction = (): ThunkAppAction => (dispatch, getState) => {
     const { theme: { type } } = getState();
     //We toggle the theme type
     const themeType = type === ValidThemes.LIGHT_THEME 
