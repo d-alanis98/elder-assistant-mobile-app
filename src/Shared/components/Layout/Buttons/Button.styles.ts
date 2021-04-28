@@ -13,6 +13,7 @@ export const StyledButton = styled.TouchableOpacity<ButtonProps>`${props => `
     width: ${ props.width || '100%' };
     height: ${ props.height || '50px'};
     margin: ${ props.margin || '0'};
+    opacity: ${ props.disabled ? 0.7 : 1 };
     background-color: ${ getBackgroundColorByType(props) };
     border-radius: ${ props.borderRadius || '5px'};
 `}`;

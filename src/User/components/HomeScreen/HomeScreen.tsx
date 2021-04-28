@@ -10,13 +10,13 @@ const HomeScreen: React.FC = () => {
     return (
         <ScreenContainer>
             <View
-                style={{paddingBottom: 30}}
+                style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}
             >
-            {
-                Array.from(new Array(70)).map((_, index) => (
-                    <Text key={index}>{index}. Hi</Text>
-                ))
-            }
+                <Text>Home</Text>
             </View>
             
         </ScreenContainer>

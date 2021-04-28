@@ -1,10 +1,10 @@
 import React from 'react';
+import { TextProps } from 'react-native';
 import { StyledLabel } from './Label.styles';
 
 
-export interface LabelProps {
+export interface LabelProps extends TextProps {
     color?: string;
-    style?: React.CSSProperties;
     margin?: string | number;
     fontSize?: number | string;
     fontFamily?: string;

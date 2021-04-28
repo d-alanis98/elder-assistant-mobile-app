@@ -39,13 +39,6 @@ const Navigation: React.FC<Props> = ({ navigation }) => {
                     />
                 </PrimaryUserProtected>
                 <NavigationItem 
-                    icon = 'cog' 
-                    section = 'Settings'
-                    onPress = { handleNavigation }
-                    sectionLabel = 'Settings'
-                    showSectionLabel
-                />
-                <NavigationItem 
                     icon = 'comments'
                     section = 'Chat'
                     onPress = { handleNavigation }
@@ -53,12 +46,21 @@ const Navigation: React.FC<Props> = ({ navigation }) => {
                     showSectionLabel
                 />
                 <NavigationItem 
+                    icon = 'cog' 
+                    section = 'Settings'
+                    onPress = { handleNavigation }
+                    sectionLabel = 'Settings'
+                    showSectionLabel
+                />
+                { /*
+                <NavigationItem 
                     icon = 'bell' 
                     section = 'Notifications'
                     onPress = { handleNavigation }
                     sectionLabel = 'Notifications'
                     showSectionLabel
                 />
+                */ }
             </NavigationContainer>
         </IsLoggedIn>
     )

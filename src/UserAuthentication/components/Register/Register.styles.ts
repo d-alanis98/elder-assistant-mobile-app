@@ -1,24 +1,27 @@
 import styled from 'styled-components/native';
+//Dimensions
 import { screenWidth } from '../../../../App.styles';
+//Theme
 import { darkTheme } from '../../../Shared/components/Theme/constants/theme';
 
 
-export const LoginContainer = styled.View`
-    flex: 1;
-    flex-direction: column;
-    padding: 20px;
-    background-color: #457b9d;
+export const RegisterContainer = styled.View`
+    height: fit-content;
 `;
 
-export const LoginFormContainer = styled.View`
+export const RegisterFormContainer = styled.View`
+    display: flex;
+    height: auto;
+    flex-direction: column;
     background-color: rgba(255,255,255,0.85);
-    padding: 30px 15px;
+    padding: 15px;
     border-radius: 10px;
     z-index: 90;
 `;
 
 
-export const LoginInput = styled.TextInput`${({ theme }) => `
+export const RegisterInput = styled.TextInput`${({ theme }) => `
+    width: 100%;
     height: 60px;
     color: ${ theme.fontColor }
     background-color: ${ theme.fontColor === darkTheme.fontColor 
@@ -32,7 +35,8 @@ export const LoginInput = styled.TextInput`${({ theme }) => `
 `}`;
 
 const illustrationSize = screenWidth / 1.5;
-export const LoginIllustration = styled.Image`
+
+export const RegisterIllustration = styled.Image`
     position: absolute;
     bottom: -35px;
     left: 0;

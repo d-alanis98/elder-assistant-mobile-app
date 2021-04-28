@@ -1,5 +1,6 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 //External dimensions
+import { HEADER_HEIGHT } from './src/Shared/components/Header/Header.styles';
 import { NAVIGATION_BAR_HEIGHT } from './src/Shared/components/Navigation/components/Navigation.styles';
 
 //Dimensions
@@ -12,7 +13,7 @@ const styles = {
         height: screenHeight,
     },
     scrollContainer: {
-        height: screenHeight - NAVIGATION_BAR_HEIGHT ,
+        height: screenHeight - NAVIGATION_BAR_HEIGHT - HEADER_HEIGHT,
         padding: 9,
     },
     text: {

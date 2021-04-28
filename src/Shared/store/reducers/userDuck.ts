@@ -134,7 +134,7 @@ export let restoreSessionAction = (): ThunkAppAction => async dispatch => {
         dispatch({
             type: LOGIN_SUCCESS,
             payload: {
-                user: parsedUser,
+                ...parsedUser,
                 token,
             }
         });
