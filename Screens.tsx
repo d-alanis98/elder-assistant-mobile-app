@@ -9,9 +9,9 @@ import HomeScreen from './src/User/components/HomeScreen/HomeScreen';
 import ChatScreen from './src/Chat/components/ChatScreen/ChatScreen';
 import SettingsScreen from './src/User/components/SettingsScreen/SettingsScreen';
 import IoTDeviceScreen from './src/IoTDevice/components/IoTDeviceScreen/IoTDeviceScreen';
+import NotificationsScreen from './src/User/components/NotificationsScreen/NotificationsScreen';
 //Hooks
 import { useAppSelector } from './src/Shared/store/hooks';
-
 
 
 const { Screen, Navigator } = createBottomTabNavigator();
@@ -23,14 +23,14 @@ const Screens: React.FC = () => {
         theme: { theme } 
     } = useAppSelector(state => state);
 
+    //Screen options
+
     return (
         <Navigator 
             tabBar = { (props) => <Navigation navigation = { props.navigation }/> }
             tabBarOptions = {{ style: styles.navigationContainer }}
+            sceneContainerStyle = { { backgroundColor: theme.backgroundColor } }
             initialRouteName = { loggedIn ? 'Home' : 'Login' }
-            sceneContainerStyle = {{
-                backgroundColor: theme.backgroundColor
-            }}
         >
             {
                 loggedIn
@@ -51,6 +51,10 @@ const Screens: React.FC = () => {
                             name = 'Devices'
                             component = { IoTDeviceScreen }
                         />
+                        <Screen 
+                            name = 'Notifications'
+                            component = { NotificationsScreen }
+                        />
                     </>
                     : <>
                         <Screen 
@@ -68,7 +72,6 @@ const Screens: React.FC = () => {
 }
 
 export default Screens;
-
 
 //Styles
 const styles = StyleSheet.create({

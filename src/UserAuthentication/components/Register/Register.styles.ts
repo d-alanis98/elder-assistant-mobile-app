@@ -1,22 +1,19 @@
 import styled from 'styled-components/native';
 //Dimensions
-import { screenWidth } from '../../../../App.styles';
+import { screenWidth, screenHeight } from '../../../../App.styles';
 //Theme
 import { darkTheme } from '../../../Shared/components/Theme/constants/theme';
 
 
-export const RegisterContainer = styled.View`
-    height: fit-content;
-`;
-
 export const RegisterFormContainer = styled.View`
-    display: flex;
     height: auto;
+    display: flex;
     flex-direction: column;
     background-color: rgba(255,255,255,0.85);
     padding: 15px;
     border-radius: 10px;
     z-index: 90;
+    margin-bottom: 60px;
 `;
 
 

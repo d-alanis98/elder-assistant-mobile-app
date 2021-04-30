@@ -3,16 +3,16 @@ import { View } from 'react-native';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 //Components
-import Header from './src/Shared/components/Header/Header';
 import Screens from './Screens';
 //Store
 import store from './src/Shared/store/store';
 import { useAppSelector } from './src/Shared/store/hooks';
 //Theme
 import { ThemeProvider } from 'styled-components/native';
+//Services
+import AxiosRequest from './src/Shared/infrastructure/Requests/AxiosRequest';
 //Styles
 import styles from './App.styles';
-import AxiosRequest from './src/Shared/infrastructure/Requests/AxiosRequest';
 
 const App: React.FC = () => {
     //HOOKS
@@ -41,7 +41,6 @@ const App: React.FC = () => {
             <View 
                 style = { styles.container }
             >    
-                <Header />
                 <Screens />
             </View>
         </ThemeProvider>

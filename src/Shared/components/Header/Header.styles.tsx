@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 //Size constants
-export const HEADER_HEIGHT = 50;
+export const HEADER_HEIGHT = 60;
 
 //Styles
 export const HeaderContainer = styled.View`${({ theme }) => `

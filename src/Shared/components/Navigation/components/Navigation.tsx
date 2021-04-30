@@ -3,15 +3,16 @@ import React from 'react';
 import IsLoggedIn from '../../Authentication/IsLoggedIn';
 import NavigationItem from './NavigationItem';
 import PrimaryUserProtected from '../../Screens/PrimaryUserProtected';
-//Styles
+//Styled components
 import { NavigationContainer } from './Navigation.styles';
 
-interface Props {
+
+interface NavigationProps {
     navigation: any;
 }
 
-const Navigation: React.FC<Props> = ({ navigation }) => {
-
+const Navigation: React.FC<NavigationProps> = ({ navigation }) => {
+    
     /**
      * Method to navigate to the selected section.
      * @param section Section (screen) name.
@@ -19,6 +20,7 @@ const Navigation: React.FC<Props> = ({ navigation }) => {
     const handleNavigation = (section: string) => {
         navigation.navigate(section);
     }
+
     return (
         <IsLoggedIn>
             <NavigationContainer>
@@ -26,7 +28,7 @@ const Navigation: React.FC<Props> = ({ navigation }) => {
                     icon = 'home' 
                     section = 'Home'
                     onPress = { handleNavigation }
-                    sectionLabel = 'Home'
+                    sectionLabel = 'Inicio'
                     showSectionLabel
                 />
                 <PrimaryUserProtected>
@@ -34,7 +36,7 @@ const Navigation: React.FC<Props> = ({ navigation }) => {
                         icon = 'microchip'
                         section = 'Devices'
                         onPress = { handleNavigation }
-                        sectionLabel = 'Devices'
+                        sectionLabel = 'Dispositivos'
                         showSectionLabel
                     />
                 </PrimaryUserProtected>
@@ -49,18 +51,9 @@ const Navigation: React.FC<Props> = ({ navigation }) => {
                     icon = 'cog' 
                     section = 'Settings'
                     onPress = { handleNavigation }
-                    sectionLabel = 'Settings'
+                    sectionLabel = 'Ajustes'
                     showSectionLabel
                 />
-                { /*
-                <NavigationItem 
-                    icon = 'bell' 
-                    section = 'Notifications'
-                    onPress = { handleNavigation }
-                    sectionLabel = 'Notifications'
-                    showSectionLabel
-                />
-                */ }
             </NavigationContainer>
         </IsLoggedIn>
     )

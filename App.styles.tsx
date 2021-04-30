@@ -1,19 +1,20 @@
-import { Dimensions } from 'react-native';
-//External dimensions
-import { HEADER_HEIGHT } from './src/Shared/components/Header/Header.styles';
-import { NAVIGATION_BAR_HEIGHT } from './src/Shared/components/Navigation/components/Navigation.styles';
-
+import { Dimensions, StatusBar } from 'react-native';
+import Constants from 'expo-constants'
 //Dimensions
-export const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
+export const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+//Real height of the app content
+const appRootHeight = screenHeight - (StatusBar.currentHeight || 24);
 
 //Styles
 const styles = {
     container: {
         margin: 0,
-        height: screenHeight,
+        height: appRootHeight,
+        marginTop: Constants.statusBarHeight
+
     },
     scrollContainer: {
-        height: screenHeight - NAVIGATION_BAR_HEIGHT - HEADER_HEIGHT,
+        flexGrow: 1,
         padding: 9,
     },
     text: {

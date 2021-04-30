@@ -1,17 +1,21 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import Label from '../../../Shared/components/Layout/Labels/Label';
+import LabelWithIcon from '../../../Shared/components/Layout/Labels/LabelWithIcon/LabelWithIcon';
+//Components
+import ScreenContainer from '../../../Shared/components/Screens/ScreenContainer';
+//Styled components
+import { SettingsScreenContainer } from './SettingsScreen.styles';
+import ThemeSettings from './ThemeSettings/ThemeSettings';
 
 
 const SettingsScreen: React.FC = () => (
-    <View
-        style = {{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center'
-        }}
+    <ScreenContainer
+        title = 'Ajustes'
     >
-        <Text>Settings</Text>
-    </View>
+        <SettingsScreenContainer>
+            <ThemeSettings />
+        </SettingsScreenContainer>
+    </ScreenContainer>
 );
 
 export default SettingsScreen;

@@ -9,7 +9,7 @@ import DateInput from '../../../Shared/components/Layout/Input/DateInput/DateInp
 import PasswordInput from '../../../Shared/components/Layout/Input/PasswordInput/PasswordInput';
 import ImageSelector, { ImageSelectorOption } from '../../../Shared/components/Layout/Input/ImageSelector/ImageSelector';
 //Styled components
-import { RegisterContainer, RegisterFormContainer, RegisterInput } from './Register.styles';
+import { RegisterInput, RegisterFormContainer } from './Register.styles';
 //API
 import { register } from '../../infrastructure/userAuthenticationApi';
 
@@ -62,48 +62,46 @@ const Register: React.FC = () => {
 
     return (
         <RegisterScrollContainer>
-            <RegisterContainer>
-                <RegisterFormContainer>
-                    <RegisterTitle>Crear cuenta</RegisterTitle>
-                    <FormLabel>Nombre: </FormLabel>
-                    <RegisterInput 
-                        placeholder = 'Nombre'
-                        onChangeText = { text => handleFieldChange('name', text) }
-                    />
-                    <FormLabel>Apellido: </FormLabel>
-                    <RegisterInput 
-                        placeholder = 'Apellido'
-                        onChangeText = { text => handleFieldChange('lastName', text) }
-                    />
-                    <FormLabel>Correo electrónico: </FormLabel>
-                    <RegisterInput 
-                        placeholder = 'Correo electrónico'
-                        onChangeText = { text => handleFieldChange('email', text) }
-                    />
-                    <FormLabel>Contraseña: </FormLabel>
-                    <PasswordInput 
-                        placeholder = 'Contraseña'
-                        onChangeText = { text => handleFieldChange('password', text) }
-                    />
-                    <FormLabel>Fecha de nacimiento: </FormLabel>
-                    <RegisterInput 
-                        placeholder = 'Fecha de nacimiento'
-                        onChangeText = { text => handleFieldChange('dateOfBirth', text) }
-                    />
-                    { /** @todo Terminar de implementar en mobile (en web no tiene soporte) <DateInput /> */ }
-                    <FormLabel>Tipo de usuario</FormLabel>
-                    <ImageSelector 
-                        selected = { userData.type }
-                        options = { userTypeOptions }
-                        setSelected = { handleUserTypeChange }
-                    />
-                    <Divider />
-                    <SubmitButton 
-                        submit = { submit }
-                        validated = { isValid() }
-                    />
-                </RegisterFormContainer>
-            </RegisterContainer>
+            <RegisterFormContainer>
+                <RegisterTitle>Crear cuenta</RegisterTitle>
+                <FormLabel>Nombre: </FormLabel>
+                <RegisterInput 
+                    placeholder = 'Nombre'
+                    onChangeText = { text => handleFieldChange('name', text) }
+                />
+                <FormLabel>Apellido: </FormLabel>
+                <RegisterInput 
+                    placeholder = 'Apellido'
+                    onChangeText = { text => handleFieldChange('lastName', text) }
+                />
+                <FormLabel>Correo electrónico: </FormLabel>
+                <RegisterInput 
+                    placeholder = 'Correo electrónico'
+                    onChangeText = { text => handleFieldChange('email', text) }
+                />
+                <FormLabel>Contraseña: </FormLabel>
+                <PasswordInput 
+                    placeholder = 'Contraseña'
+                    onChangeText = { text => handleFieldChange('password', text) }
+                />
+                <FormLabel>Fecha de nacimiento: </FormLabel>
+                <RegisterInput 
+                    placeholder = 'Fecha de nacimiento'
+                    onChangeText = { text => handleFieldChange('dateOfBirth', text) }
+                />
+                { /** @todo Terminar de implementar en mobile (en web no tiene soporte) <DateInput /> */ }
+                <FormLabel>Tipo de usuario</FormLabel>
+                <ImageSelector 
+                    selected = { userData.type }
+                    options = { userTypeOptions }
+                    setSelected = { handleUserTypeChange }
+                />
+                <Divider />
+                <SubmitButton 
+                    submit = { submit }
+                    validated = { isValid() }
+                />
+            </RegisterFormContainer>
         </RegisterScrollContainer>
     )
 }
@@ -115,9 +113,9 @@ export default Register;
 const RegisterScrollContainer: React.FC = ({ children }) => (
     <ScrollView
         style = {{
-            height: '100%',
+            flex: 1,
             padding: 15,
-            backgroundColor: '#457b9d'
+            backgroundColor: '#457b9d',
         }}
     >
      { children }

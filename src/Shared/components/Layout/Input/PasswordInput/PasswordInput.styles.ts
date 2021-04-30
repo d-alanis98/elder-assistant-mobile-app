@@ -41,7 +41,7 @@ export const PasswordInputField = styled.TextInput<PasswordInputProps>`${({
     fontSize,
     fontColor,
 }) => `
-    max-width: calc(100% - ${ getFontSize(fontSize) } - 10px);
+    width: auto;
     flex-grow: 1;
     color: ${ fontColor || theme.fontColor };
     padding: 10px;

@@ -43,9 +43,10 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({
                 >
                     <ImageSelectorAsset
                         source = { option.imageSource }
+                        style = {{ resizeMode: 'contain' }}
                         { ...imageProperties }
                     />
-                    <Label style={{ flexGrow: 1}}> { option.description } </Label>
+                    <Label style={{ flexGrow: 1, textAlign: 'center' }}> { option.description } </Label>
                 </ImageSelectorOption>
             ))
         }

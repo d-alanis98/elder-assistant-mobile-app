@@ -86,7 +86,7 @@ const ShowOrHideIcon: React.FC<ShowOrHideIconProps> = ({
         style = {{ 
             width: iconSize ? iconSize + 10 : 30, 
             display: 'flex',
-            padding: 5,
+            padding: 1,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',

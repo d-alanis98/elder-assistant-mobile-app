@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { screenWidth } from '../../../../../../App.styles';
 //Props
 import { ImageProps } from './ImageSelector';
 
@@ -22,19 +23,19 @@ export const ImageSelectorOption = styled.TouchableOpacity<ImageProps>`${({
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5px;
+    padding: 10px;
     text-align: center;
-    width: clamp(50px, calc(${ getImageWidth(numberOfOptions) }% - 10px), 200px);
-    height: clamp(150, fit-content, 400px);
+    width: ${ getImageWidth(numberOfOptions) }px;
+    height: auto;
     border: ${ selected 
         ? `${ selectedBorderWidth || 2 }px solid ${ selectedBorderColor || 'rgba(0,0,0,0.1)' }` 
-        : 'none' 
+        : 'transparent' 
     };
     border-radius: 7px;
     margin-right: 10px;
     background-color: ${ selected
         ? 'rgba(0,0,0,0.07)'
-        : 'none'
+        : 'transparent'
     };
 `}`
 
@@ -45,4 +46,5 @@ export const ImageSelectorAsset = styled.Image`
 `
 
 
-const getImageWidth = (numberOfOptions:  number) => Math.floor(100 / numberOfOptions);
+
+const getImageWidth = (numberOfOptions:  number) => Math.floor(screenWidth / numberOfOptions) - 50;

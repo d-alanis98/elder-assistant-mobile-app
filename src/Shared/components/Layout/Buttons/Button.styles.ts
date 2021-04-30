@@ -1,4 +1,3 @@
-import { CSSProperties } from 'react';
 import { TextProps } from 'react-native';
 import styled from 'styled-components/native';
 //Props
@@ -15,7 +14,7 @@ export const StyledButton = styled.TouchableOpacity<ButtonProps>`${props => `
     margin: ${ props.margin || '0'};
     opacity: ${ props.disabled ? 0.7 : 1 };
     background-color: ${ getBackgroundColorByType(props) };
-    border-radius: ${ props.borderRadius || '5px'};
+    border-radius: ${ props.borderRadius || 5 }px;
 `}`;
 
 const getBackgroundColorByType = (props: any) => {
@@ -45,5 +44,5 @@ interface ButtonTextProps extends TextProps {
 export const StyledButtonText = styled.Text<ButtonTextProps>`${({ theme, fontSize }) => `
     color: ${ theme.backgroundColor };
     font-family: sans-serif;
-    fontSize: ${ fontSize || '22px'};
+    fontSize: ${ fontSize || 20}px;
 `}`;
