@@ -30,3 +30,5 @@ export const themeToApply = (theme: ValidThemes): ThemeParameters => {
             return lightTheme;
     }
 }
+
+export const isDarkTheme = (theme: ThemeParameters) => theme.fontColor === darkTheme.fontColor;

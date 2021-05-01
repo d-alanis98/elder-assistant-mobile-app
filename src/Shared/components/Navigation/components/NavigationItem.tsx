@@ -30,6 +30,7 @@ const NavigationItem: React.FC<Props> = ({
                 name = { icon }
                 size = { iconSize }
                 color = { iconColor }
+                solid
             />
             {
                 showSectionLabel && (

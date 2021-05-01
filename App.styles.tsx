@@ -1,17 +1,13 @@
-import { Dimensions, StatusBar } from 'react-native';
-import Constants from 'expo-constants'
+import { Dimensions } from 'react-native';
 //Dimensions
 export const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
-//Real height of the app content
-const appRootHeight = screenHeight - (StatusBar.currentHeight || 24);
+
 
 //Styles
 const styles = {
     container: {
         margin: 0,
-        height: appRootHeight,
-        marginTop: Constants.statusBarHeight
-
+        flex: 1,
     },
     scrollContainer: {
         flexGrow: 1,

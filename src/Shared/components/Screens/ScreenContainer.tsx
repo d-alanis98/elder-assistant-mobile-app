@@ -20,7 +20,7 @@ const ScreenContainer: React.FC<Props> = ({
     title,
     style = [],
     children,
-    animated = false,
+    animated = true,
     headerComponent = <Header />,
     containerStyle,
 }) => {

@@ -1,7 +1,7 @@
 import { TextProps } from 'react-native';
 import styled from 'styled-components/native';
 //Props
-import { ButtonProps, ButtonTypes } from './Button';
+import { ButtonProps } from './Button';
 
 export const StyledButton = styled.TouchableOpacity<ButtonProps>`${props => `
     display: flex;
@@ -12,9 +12,11 @@ export const StyledButton = styled.TouchableOpacity<ButtonProps>`${props => `
     width: ${ props.width || '100%' };
     height: ${ props.height || '50px'};
     margin: ${ props.margin || '0'};
+    margin-top: ${ props.marginTop || 0 }px;
+    margin-bottom: ${ props.marginBottom || 0 }px;
     opacity: ${ props.disabled ? 0.7 : 1 };
     background-color: ${ getBackgroundColorByType(props) };
-    border-radius: ${ props.borderRadius || 5 }px;
+    border-radius: ${ props.borderRadius || 30 }px;
 `}`;
 
 const getBackgroundColorByType = (props: any) => {
@@ -46,3 +48,12 @@ export const StyledButtonText = styled.Text<ButtonTextProps>`${({ theme, fontSiz
     font-family: sans-serif;
     fontSize: ${ fontSize || 20}px;
 `}`;
+
+
+enum ButtonTypes {
+    DANGER = 'danger',
+    PRIMARY = 'primary',
+    SUCCESS = 'success',
+    WARNING = 'warning',
+    INFORMATION = 'information'
+}

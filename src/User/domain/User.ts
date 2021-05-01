@@ -5,6 +5,7 @@ export interface UserData {
     token?: string;
     lastName: string;
     dateOfBirth: string;
+    refreshToken?: string;
 }
 
 export interface UserPrimitives extends UserData {

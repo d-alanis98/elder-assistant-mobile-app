@@ -1,42 +1,39 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Animated } from 'react-native';
+import { useFocusEffect } from '@react-navigation/core';
 
 
 export interface FadeInProps {
     duration?: number;
 }
 
-
 const FadeIn: React.FC<FadeInProps> = ({ 
     children, 
     duration
 }) => {
+    //Constants
+    const DEFAULT_ANIMATION_DURATION = 500;
     /**
      * Hooks
      */
     //Refs
     //Initial value for opacity: 0
     const opacity = useRef(new Animated.Value(0)).current;
-    //Default animation duration
-    const defaultDuration = useRef(1000).current; 
 
     //Effects
-    //Animation starts on mount
-    useEffect(() => {
+    //Animation starts on focus
+    useFocusEffect(() => {
+        opacity.setValue(0);
         Animated.timing(opacity, {
             toValue: 1,
-            duration: duration || defaultDuration,
+            duration: duration || DEFAULT_ANIMATION_DURATION,
             useNativeDriver: false
         }).start();
-    }, []);
+    });
 
     return (
             <Animated.View
-                style={{
-                    opacity,
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}
+                style = {{ opacity }}
             >
                 { children }
             </Animated.View>

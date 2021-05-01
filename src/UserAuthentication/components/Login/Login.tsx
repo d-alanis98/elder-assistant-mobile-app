@@ -2,9 +2,9 @@ import React, { useCallback, useState } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 //Components
 import Label from '../../../Shared/components/Layout/Labels/Label';
+import Button from '../../../Shared/components/Layout/Buttons/Button';
 import Divider from '../../../Shared/components/Layout/Divider/Divider';
 import PasswordInput from '../../../Shared/components/Layout/Input/PasswordInput/PasswordInput';
-import Button, { ButtonTypes } from '../../../Shared/components/Layout/Buttons/Button';
 //Actions
 import { loginAction } from '../../../Shared/store/reducers/userDuck';
 //Hooks
@@ -76,7 +76,7 @@ export default Login;
 
 const LoginTitle: React.FC = ({ children }) => (
     <Label
-        fontSize = '24px'
+        fontSize = { 24 }
         fontWeight = '500'
         style = {{ alignSelf: 'center' }}
     >
@@ -86,7 +86,7 @@ const LoginTitle: React.FC = ({ children }) => (
 
 const FormLabel: React.FC = ({ children }) => (
     <Label 
-        fontSize = '20px'
+        fontSize = { 20 }
         fontWeight = '500'
         style = {{ marginTop: 20, marginBottom: 10 }}
     > 
@@ -133,7 +133,7 @@ const FormSubmitButton: React.FC<SubmitButtonProps> = ({
     credentials
 }) => (
     <Button 
-        type = { ButtonTypes.PRIMARY }
+        type = 'primary'
         width = '75%'
         margin = '20px'
         onPress = { submit }

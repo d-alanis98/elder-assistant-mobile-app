@@ -3,10 +3,12 @@ import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 //Reducers
 import userReducer, { restoreSessionAction } from './reducers/userDuck';
 import themeReducer from './reducers/themeDuck';
+import devicesReducer from './reducers/devicesDuck';
 
 const rootReducer = combineReducers({
     user: userReducer,
     theme: themeReducer,
+    devices: devicesReducer, 
 });
 
 const generateStore = () => {

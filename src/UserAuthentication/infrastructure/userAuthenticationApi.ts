@@ -9,7 +9,7 @@ import { AuthenticationResponse } from '../domain/UserAuthentication';
 
 export const login = async (data: FormData | Object): Promise<AuthenticationResponse> => {
     const response = await AxiosRequest.post(
-        'http://192.168.1.94:3000/login',
+        '/login',
         data
     );
     const responseData: AuthenticationResponse = response.data;
@@ -18,7 +18,7 @@ export const login = async (data: FormData | Object): Promise<AuthenticationResp
 
 export const register = async(data: FormData | Object): Promise<UserPrimitives> => {
     const response = await AxiosRequest.post(
-        'http://192.168.1.94:3000/register',
+        '/register',
         data
     );
     const responseData: UserPrimitives = response.data;

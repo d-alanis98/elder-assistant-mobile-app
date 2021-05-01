@@ -1,17 +1,21 @@
 import React from 'react';
-import { TouchableOpacityProps, Text } from 'react-native'
+import { TouchableOpacityProps } from 'react-native'
 import { NativeSyntheticEvent, NativeTouchEvent } from 'react-native';
 //Styles
 import { StyledButton, StyledButtonText } from './Button.styles';
 
+
+
 export interface ButtonProps extends TouchableOpacityProps {
-    type?: ButtonTypes;
+    type?: 'danger' | 'primary' | 'success' | 'warning';
     color?: string;
     width?: number | string;
     height?: number | string;
     margin?: number | string;
     onPress: (event?: NativeSyntheticEvent<NativeTouchEvent>) => void;
     fontSize?: number | string;
+    marginTop?: number;
+    marginBottom?: number;
     borderRadius?: number | string;
     backgroundColor?: string;
     accessibilityLabel?: string;
@@ -19,13 +23,15 @@ export interface ButtonProps extends TouchableOpacityProps {
 
 
 const Button: React.FC<ButtonProps> = ({ 
-    type = ButtonTypes.PRIMARY,
+    type = 'primary',
     color,
     width,
     height,
     onPress,
     children,
     fontSize,
+    marginTop,
+    marginBottom,
     borderRadius,
     backgroundColor,
     accessibilityLabel,
@@ -37,6 +43,8 @@ const Button: React.FC<ButtonProps> = ({
         width = { width }
         height = { height }
         onPress = { onPress }
+        marginTop = { marginTop }
+        marginBottom = { marginBottom }
         borderRadius = { borderRadius }
         backgroundColor = { backgroundColor }
         accessibilityLabel = { accessibilityLabel }
@@ -47,12 +55,3 @@ const Button: React.FC<ButtonProps> = ({
 );
 
 export default Button;
-
-//Helpers
-export enum ButtonTypes {
-    DANGER = 'danger',
-    PRIMARY = 'primary',
-    SUCCESS = 'success',
-    WARNING = 'warning',
-    INFORMATION = 'information'
-}

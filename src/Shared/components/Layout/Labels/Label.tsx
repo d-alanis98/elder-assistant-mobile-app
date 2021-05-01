@@ -6,7 +6,7 @@ import { StyledLabel } from './Label.styles';
 export interface LabelProps extends TextProps {
     color?: string;
     margin?: string | number;
-    fontSize?: number | string;
+    fontSize?: number;
     fontFamily?: string;
     fontWeight?: string;
 }

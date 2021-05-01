@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 //Components
 import Label from '../../../Shared/components/Layout/Labels/Label';
-import Button, { ButtonTypes } from '../../../Shared/components/Layout/Buttons/Button';
+import Button from '../../../Shared/components/Layout/Buttons/Button';
 import Divider from '../../../Shared/components/Layout/Divider/Divider';
 import DateInput from '../../../Shared/components/Layout/Input/DateInput/DateInput';
 import PasswordInput from '../../../Shared/components/Layout/Input/PasswordInput/PasswordInput';
@@ -124,7 +124,7 @@ const RegisterScrollContainer: React.FC = ({ children }) => (
 
 const RegisterTitle: React.FC = ({ children }) => (
     <Label
-        fontSize = '24px'
+        fontSize = { 24 }
         fontWeight = '500'
         style = {{ alignSelf: 'center' }}
     >
@@ -134,7 +134,7 @@ const RegisterTitle: React.FC = ({ children }) => (
 
 const FormLabel: React.FC = ({ children }) => (
     <Label 
-        fontSize = '20px'
+        fontSize = { 20 }
         fontWeight = '500'
         style = {{ marginTop: 10, marginBottom: 5 }}
     > 
@@ -152,7 +152,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
     validated
 }) => (
     <Button
-        type = { ButtonTypes.PRIMARY }
+        type = 'primary'
         width = '75%'
         margin = '20px'
         onPress = { submit }
