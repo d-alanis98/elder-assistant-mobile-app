@@ -1,12 +1,14 @@
 import styled from 'styled-components/native';
-import ButtonWithIcon from '../../../Shared/components/Layout/Buttons/ButtonWithIcon/ButtonWithIcon';
+//Components
 import TouchableIcon from '../../../Shared/components/Layout/Icons/TouchableIcon/TouchableIcon';
-//Theme
-import { isDarkTheme } from '../../../Shared/components/Theme/constants/theme';
+import ButtonWithIcon from '../../../Shared/components/Layout/Buttons/ButtonWithIcon/ButtonWithIcon';
+//Theme utils
+import ThemeUtils from '../../../Shared/utils/Theme/ThemeUtils';
 
 export const DevicesListContainer = styled.View`
     display: flex;
     width: 100%;
+    align-self: center;
     flex-direction: column;
     align-items: flex-start;
     padding: 10px;
@@ -24,9 +26,10 @@ export const DevicesListItem = styled.TouchableOpacity`${({ theme }) => `
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    background-color: ${ isDarkTheme(theme) ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' };
+    background-color: ${ ThemeUtils.getThemedTranslucidBackground(theme, 0.05) };
     padding: 20px 10px;
     border-radius: 25px;
+    margin-bottom: 10px;
 `}`;
 
 export const DeviceName = styled.Text`${({ theme }) => `
@@ -44,3 +47,19 @@ export const DeviceSettings = styled(TouchableIcon).attrs(props => ({
 }))`
     width: 40px;
 `;
+
+
+export const DeviceRefreshButton = styled(TouchableIcon).attrs(props => ({
+    ...(props as Object),
+    icon: 'redo',
+    size: 15
+}))`${({ theme }) => `
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    align-self: flex-end;
+    background-color: ${ ThemeUtils.getThemedTranslucidBackground(theme) };
+    border-radius: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+`}`;

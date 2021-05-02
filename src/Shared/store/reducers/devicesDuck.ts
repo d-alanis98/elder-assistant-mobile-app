@@ -8,7 +8,7 @@ import { getDevicesData } from '../../../IoTDevice/infrastructure/api/devicesApi
 
 /**
  * @author Damián Alanís Ramírez
- * @version 1.1.1
+ * @version 2.2.1
  * @description Specification of the devices reducer, containing action types, the reducer itself and the action functions.
  */
 
@@ -102,4 +102,31 @@ export let getDevicesWithLoaderAction = (): ThunkAppAction => async (dispatch, g
         type: GET_DEVICES
     });
     getDevicesAction()(dispatch, getState, null);
+}
+
+/**
+ * Action to search a device in the devices array by it's ID.
+ * @param {string} deviceId Id of the device to find.
+ * @returns 
+ */
+export let findDeviceByIdAction = (deviceId: string): ThunkAppAction<IoTDevicePrimitives | undefined> => (dispatch, getState) => {
+    const { devices: { devices } } = getState();
+    if(!devices)
+        return undefined;
+    return devices.find((device: IoTDevicePrimitives) => (
+        device._id === deviceId
+    ));
+}
+
+/**
+ * Action to get the event keys of a device.
+ * @param deviceId Id of the device whose event keys we want to get.
+ * @returns 
+ */
+export let getDeviceEventKeysAction = (deviceId: string): ThunkAppAction<string[]> => (dispatch, getState) => {
+    const device: IoTDevicePrimitives | undefined = findDeviceByIdAction(deviceId)(dispatch, getState, null);
+    if(!device)
+        return [];
+    return device.eventKeys;
+
 }

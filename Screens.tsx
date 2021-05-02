@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 //Components
@@ -12,62 +12,74 @@ import IoTDeviceScreen from './src/IoTDevice/components/IoTDeviceScreen/IoTDevic
 import NotificationsScreen from './src/User/components/NotificationsScreen/NotificationsScreen';
 //Hooks
 import { useAppSelector } from './src/Shared/store/hooks';
-
+//Context
+import CurrentScreenContext from './src/Shared/components/Screens/context/CurrentScreenContext';
 
 const { Screen, Navigator } = createBottomTabNavigator();
 
 const Screens: React.FC = () => {
-
+    /**
+     * Hooks
+     */
+    //State
+    const [currentScreen, setCurrentScreen] = useState<string>();
+    //Redux store selector
     const {
         user: { loggedIn }, 
         theme: { theme } 
     } = useAppSelector(state => state);
 
-    //Screen options
 
     return (
-        <Navigator 
-            tabBar = { (props) => <Navigation navigation = { props.navigation }/> }
-            tabBarOptions = {{ style: styles.navigationContainer }}
-            sceneContainerStyle = { { backgroundColor: theme.backgroundColor } }
-            initialRouteName = { loggedIn ? 'Home' : 'Login' }
+        <CurrentScreenContext.Provider
+            value = {{
+                currentScreen,
+                setCurrentScreen
+            }}
         >
-            {
-                loggedIn
-                    ? <>
-                        <Screen 
-                            name = 'Home'
-                            component = { HomeScreen }
-                        />
-                        <Screen 
-                            name = 'Settings'
-                            component = { SettingsScreen }
-                        />
-                        <Screen 
-                            name = 'Chat'
-                            component = { ChatScreen }
-                        />
-                        <Screen 
-                            name = 'Devices'
-                            component = { IoTDeviceScreen }
-                        />
-                        <Screen 
-                            name = 'Notifications'
-                            component = { NotificationsScreen }
-                        />
-                    </>
-                    : <>
-                        <Screen 
-                            name = 'Login'
-                            component = { Login }
-                        />
-                        <Screen 
-                            name = 'Register'
-                            component = { Register }
-                        />
-                    </>
-            }
-        </Navigator>
+            <Navigator 
+                tabBar = { (props) => <Navigation navigation = { props.navigation }/> }
+                tabBarOptions = {{ style: styles.navigationContainer }}
+                sceneContainerStyle = { { backgroundColor: theme.backgroundColor } }
+                initialRouteName = { loggedIn ? 'Home' : 'Login' }
+            >
+                {
+                    loggedIn
+                        ? <>
+                            <Screen 
+                                name = 'Home'
+                                component = { HomeScreen }
+                            />
+                            <Screen 
+                                name = 'Settings'
+                                component = { SettingsScreen }
+                            />
+                            <Screen 
+                                name = 'Chat'
+                                component = { ChatScreen }
+                            />
+                            <Screen 
+                                name = 'Devices'
+                                component = { IoTDeviceScreen }
+                            />
+                            <Screen 
+                                name = 'Notifications'
+                                component = { NotificationsScreen }
+                            />
+                        </>
+                        : <>
+                            <Screen 
+                                name = 'Login'
+                                component = { Login }
+                            />
+                            <Screen 
+                                name = 'Register'
+                                component = { Register }
+                            />
+                        </>
+                }
+            </Navigator>
+        </CurrentScreenContext.Provider>
     );
 }
 

@@ -29,6 +29,7 @@ const FadeIn: React.FC<FadeInProps> = ({
             duration: duration || DEFAULT_ANIMATION_DURATION,
             useNativeDriver: false
         }).start();
+        return () => opacity.setValue(0)
     });
 
     return (

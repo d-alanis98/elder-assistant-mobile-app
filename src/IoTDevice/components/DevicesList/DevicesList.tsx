@@ -1,20 +1,20 @@
 import React from 'react';
-import { useFocusEffect } from '@react-navigation/core';
+import { Text } from 'react-native';
+//Components
+import DeviceIcon from '../DeviceIcon/DeviceIcon';
 //Styled components
-import { DeviceName, DeviceSettings, DevicesListContainer, DevicesListItem, LinkDeviceButton } from './DevicesList.styles';
+import { DeviceName, DeviceRefreshButton, DeviceSettings, DevicesListContainer, DevicesListItem } from './DevicesList.styles';
 //Hooks
 import useDevices from '../../../Shared/store/hooks/devices/useDevices';
-import { StyleSheet, Text, View } from 'react-native';
-import DeviceIcon from '../DeviceIcon/DeviceIcon';
-import ButtonWithIcon from '../../../Shared/components/Layout/Buttons/ButtonWithIcon/ButtonWithIcon';
-import Label from '../../../Shared/components/Layout/Labels/Label';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { screenHeight } from '../../../../App.styles';
 
 
+interface DevicesListProps {
+    showRefreshButton?: boolean;
+}
 
-
-const DevicesList: React.FC = () => {
+const DevicesList: React.FC<DevicesListProps> = ({
+    showRefreshButton = true,
+}) => {
 
     /**
      * Hooks
@@ -22,18 +22,15 @@ const DevicesList: React.FC = () => {
     //Devices
     const { devices, fetching, getDevices } = useDevices();
 
-    const [show, setShow] = React.useState(false);
-
-    //Focus effect
-    useFocusEffect(() => {
-        getDevices();
-    });
-
     if(fetching)
         return <Text>Cargando</Text>
 
     return (
         <DevicesListContainer>
+            <RefreshButton 
+                getDevices = { getDevices }
+                showRefreshButton = { showRefreshButton }
+            />
             {
                 devices.map(({ _id, name, type }) => (
                     <DevicesListItem
@@ -52,3 +49,22 @@ const DevicesList: React.FC = () => {
 }
 
 export default DevicesList;
+
+
+//Internal components
+
+interface RefreshButtonProps {
+    getDevices: () => void;
+    showRefreshButton: boolean;
+}
+
+const RefreshButton: React.FC<RefreshButtonProps> = ({
+    getDevices,
+    showRefreshButton
+}) => showRefreshButton 
+    ? (
+        <DeviceRefreshButton 
+            onPress = { () => getDevices() }
+        />
+    )
+    : null;

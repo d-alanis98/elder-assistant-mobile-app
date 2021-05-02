@@ -28,7 +28,7 @@ const getDeviceIconByType = (deviceType: string) => {
         case IoTDeviceTypes.PILLBOX:
             return 'pills';
         case IoTDeviceTypes.WEARABLE:
-            return 'watch';
+            return 'microchip';
         default:
             return 'microchip';
     } 

@@ -2,7 +2,8 @@ import React from 'react';
 import { useFocusEffect } from '@react-navigation/core';
 //Components
 import ScreenContainer from '../../../Shared/components/Screens/ScreenContainer';
-
+import PrimaryUserScreen from './PrimaryUser/PrimaryUserScreen';
+import PrimaryUserProtected from '../../../Shared/components/Screens/PrimaryUserProtected';
 
 
 const HomeScreen: React.FC = () => {
@@ -18,7 +19,9 @@ const HomeScreen: React.FC = () => {
         <ScreenContainer
             title = 'Inicio'
         >
-            
+            <PrimaryUserProtected>
+                <PrimaryUserScreen />
+            </PrimaryUserProtected>
         </ScreenContainer>
     );
 }

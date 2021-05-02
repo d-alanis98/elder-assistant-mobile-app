@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ViewProps, ViewStyle } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 //Components
@@ -7,6 +7,10 @@ import Header from '../Header/Header';
 import FadeIn from '../Layout/Animations/FadeIn/FadeIn';
 //Styles
 import containerStyles from '../../../../App.styles';
+//Context
+import CurrentScreenContext from './context/CurrentScreenContext';
+//Hooks
+import useCurrentScreen from '../Navigation/hooks/useCurrentScreen';
 
 interface Props extends ViewProps {
     title?: string | React.ReactElement;
@@ -24,6 +28,18 @@ const ScreenContainer: React.FC<Props> = ({
     headerComponent = <Header />,
     containerStyle,
 }) => {
+    /**
+     * Hooks
+     */
+    //Current screen
+    const currentScreen = useCurrentScreen();
+    //Context consumer
+    const { setCurrentScreen } = useContext(CurrentScreenContext);
+    //Effects
+    useEffect(() => {
+        //We set the current screen at context level
+        setCurrentScreen?.(currentScreen);
+    }, [currentScreen]);
 
     return (
         <>

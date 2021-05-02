@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 //Icons
-import { FontAwesome5 } from '@expo/vector-icons'; 
+import { NavigationItemContainer, NavigationItemIcon, NavigationItemLabel } from './NavigationItem.styles';
 
 interface Props {
     icon: string,
+    active: boolean,
     section: string;
     onPress?: (section: string) => void;
     iconSize?: number | string;
@@ -15,52 +16,38 @@ interface Props {
 
 const NavigationItem: React.FC<Props> = ({
     icon,
+    active,
     section,
     onPress,
-    iconSize = iconDefaults.size,
-    iconColor = iconDefaults.color,
+    iconSize,
+    iconColor,
     sectionLabel,
     showSectionLabel
 }) => (
-    <TouchableWithoutFeedback
+    <TouchableOpacity
         onPress = { () => onPress?.(section) }
     >
-        <View style = { styles.container }>
-            <FontAwesome5 
+        <NavigationItemContainer>
+            <NavigationItemIcon 
                 name = { icon }
                 size = { iconSize }
                 color = { iconColor }
                 solid
+                active = { active }
             />
             {
                 showSectionLabel && (
-                    <Text style = { styles.sectionlabel }>{ sectionLabel }</Text>
+                    <NavigationItemLabel
+                        active = { active }
+                        iconColor = { iconColor }
+                    >
+                        { sectionLabel }
+                    </NavigationItemLabel>
                 )
             }
-        </View>
-    </TouchableWithoutFeedback>
+        </NavigationItemContainer>
+    </TouchableOpacity>
 );
 
 
 export default NavigationItem;
-
-
-const iconDefaults = {
-    size: 20,
-    color: '#aaaaaa',
-};
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        height: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        padding: 5,
-    },
-    sectionlabel: {
-        color: '#aaaaaa',
-        marginTop: 5,
-    }
-})

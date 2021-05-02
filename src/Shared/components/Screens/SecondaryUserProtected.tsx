@@ -5,16 +5,16 @@ import { ValidUserTypes } from '../../../User/domain/User';
 import { useAppSelector } from '../../store/hooks';
 
 
-const PrimaryUserProtected: React.FC = ({ children }) => {
+const SecondaryUserProtected: React.FC = ({ children }) => {
     /**
      * Hooks
      */
     //Redux state
     const { type: userType = 'SECONDARY' } = useAppSelector(state => state?.user);
 
-    return userType === ValidUserTypes.PRIMARY
+    return userType === ValidUserTypes.SECONDARY
     ? <>{ children }</>
     : null;
 }
 
-export default PrimaryUserProtected;
+export default SecondaryUserProtected;

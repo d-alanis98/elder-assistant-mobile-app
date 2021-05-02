@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '..';
+//Domain
 import { IoTDevicePrimitives } from '../../../../IoTDevice/domain/IoTDevice';
+//Hooks
+import { useAppDispatch, useAppSelector } from '..';
 //Actions
 import { getDevicesAction, getDevicesWithLoaderAction } from '../../reducers/devicesDuck';
 
@@ -27,7 +29,7 @@ const useDevices = () => {
     return { 
         devices: <IoTDevicePrimitives[]>devices, 
         fetching,
-        getDevices: getDevicesAction,
+        getDevices: () => dispatch(getDevicesAction()),
     };
 }
 

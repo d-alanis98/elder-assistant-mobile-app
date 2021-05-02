@@ -130,7 +130,6 @@ export let loginAction = (data: FormData | Object): ThunkAppAction<Promise<void>
         });
         
     } catch(error) {
-        console.log(error)
         dispatch({
             type: LOGIN_ERROR,
             payload: error.message,

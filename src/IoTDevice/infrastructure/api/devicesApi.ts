@@ -6,7 +6,7 @@ import AxiosRequest from '../../../Shared/infrastructure/Requests/AxiosRequest';
 /**
  * @author Damián Alanís Ramírez
  * @version 1.1.1
- * @description API facade to access relevant data for the user views and use cases.
+ * @description Facade to access device API endpoints.
  */
 
 export const getDevicesData = async (): Promise<IoTDevicePrimitives[]> => {
