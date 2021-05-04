@@ -1,5 +1,5 @@
 export interface IoTDeviceDataPrimitives {
-    _id?: string,
+    _id: string,
     key: string,
     value: IoTDeviceDataType,
     deviceId: string,

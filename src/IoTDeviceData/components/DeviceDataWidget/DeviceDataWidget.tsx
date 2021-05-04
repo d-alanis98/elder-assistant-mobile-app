@@ -1,5 +1,8 @@
 import React from 'react';
 import { ViewProps } from 'react-native';
+//Domain
+import { IoTDevicePrimitives } from '../../../IoTDevice/domain/IoTDevice';
+import { IoTDeviceDataPrimitives } from '../../domain/IoTDeviceData';
 //Styled components
 import { DeviceDataWidgetContainer, DeviceDataWidgetTitleContainer, DeviceDataWidgetTitleIcon, DeviceDataWidgetTitleText } from './DeviceDataWidget.styles';
 
@@ -55,3 +58,11 @@ const DeviceDataWidget: React.FC<DeviceDataWidgetProps> = ({
 }
 
 export default DeviceDataWidget;
+
+//Helpers
+export interface BaseWidgetProps {
+    key: string;
+    event: IoTDeviceDataPrimitives;
+    device: IoTDevicePrimitives;
+    eventData: string | Object;
+}

@@ -7,6 +7,7 @@ import { IoTDevicePrimitives } from '../../../../IoTDevice/domain/IoTDevice';
 import useDeviceData from '../../../../Shared/store/hooks/deviceData/useDeviceData';
 //Types
 import { LastEventData } from '../../../../Shared/store/reducers/deviceDataDuck';
+import { getWidgetComponent } from '../../DeviceDataComponents/componentsDictionary';
 
 
 interface WidgetDataRenderer {
@@ -41,13 +42,14 @@ const WidgetDataRenderer: React.FC<WidgetDataRenderer> = ({
             {
                 Object.entries(deviceLastData)
                     .map(([eventKey, value]) => (
-                    <DeviceDataWidget 
-                        key = { value._id }
-                        icon = 'microchip'
-                        widgetTitle = { eventKey }
-                    >
-                        
-                    </DeviceDataWidget>
+                    getWidgetComponent({
+                        key: value._id,
+                        event: value,
+                        device,
+                        eventKey,
+                        eventData: value.value,
+                        deviceType: device.type,
+                    })
                 ))
 
             }

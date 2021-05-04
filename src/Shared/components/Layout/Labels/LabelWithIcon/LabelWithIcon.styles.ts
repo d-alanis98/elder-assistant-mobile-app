@@ -14,5 +14,5 @@ export const LabelStyledIcon = styled(FontAwesome5)`${({
 }) => `
     color: ${ color || theme.fontColor };
     fontSize: ${ fontSize || 20 }px;
-    margin-right: 5px;
+    margin-right: 10px;
 `}`

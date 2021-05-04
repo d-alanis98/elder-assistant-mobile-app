@@ -24,6 +24,8 @@ const DeviceDataRenderer: React.FC<DeviceDataRendererProps> = ({
 
     //Effects
     useEffect(() => {
+        if(!devices || devices.length === 0)
+            return;
         setFetching(true)
         //We retrieve the last data for each device
         devices.forEach(device => {
@@ -32,6 +34,10 @@ const DeviceDataRenderer: React.FC<DeviceDataRendererProps> = ({
                 .catch(() => setFetching(false));
         });
     }, [devices]);
+
+    if(devices.length === 0)
+        return <Label fontSize = {15} color='#777' style={{ alignSelf: 'center'}}>Sin datos</Label>
+
 
     if(fetching)
         return <Label>Loading...</Label>
