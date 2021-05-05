@@ -7,6 +7,7 @@ import Button from '../../../Shared/components/Layout/Buttons/Button';
 import Divider from '../../../Shared/components/Layout/Divider/Divider';
 import DateInput from '../../../Shared/components/Layout/Input/DateInput/DateInput';
 import PasswordInput from '../../../Shared/components/Layout/Input/PasswordInput/PasswordInput';
+import { GoBackButton } from '../../../Shared/components/Header/Header';
 import ImageSelector, { ImageSelectorOption } from '../../../Shared/components/Layout/Input/ImageSelector/ImageSelector';
 //Styled components
 import { RegisterInput, RegisterFormContainer } from './Register.styles';
@@ -63,6 +64,7 @@ const Register: React.FC = () => {
     return (
         <RegisterScrollContainer>
             <RegisterFormContainer>
+                <GoBackButton />
                 <RegisterTitle>Crear cuenta</RegisterTitle>
                 <FormLabel>Nombre: </FormLabel>
                 <RegisterInput 

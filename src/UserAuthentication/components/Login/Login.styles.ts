@@ -41,4 +41,11 @@ export const LoginIllustration = styled.Image`
     height: ${ illustrationSize }px;
     width: ${ illustrationSize }px;
     z-index: 10;
+`;
+
+export const RegisterLinkContainer = styled.View`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 `

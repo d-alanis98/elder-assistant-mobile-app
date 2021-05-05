@@ -21,7 +21,7 @@ const Header: React.FC = () => (
 export default Header;
 
 //Internal components
-const GoBackButton = () => {
+export const GoBackButton = () => {
     /**
      * Hooks
      */

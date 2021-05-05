@@ -11,7 +11,7 @@ import { loginAction } from '../../../Shared/store/reducers/userDuck';
 import { useNavigation } from '@react-navigation/native';
 import { useAppDispatch } from '../../../Shared/store/hooks';
 //Styled components
-import { LoginContainer, LoginFormContainer, LoginIllustration, LoginInput } from './Login.styles';
+import { LoginContainer, LoginFormContainer, LoginIllustration, LoginInput, RegisterLinkContainer } from './Login.styles';
 //Styles
 import { lightTheme } from '../../../Shared/components/Theme/constants/theme';
 
@@ -99,27 +99,23 @@ interface RegisterLinkProps {
 }
 
 const RegisterLink: React.FC<RegisterLinkProps> = ({ navigateToRegister }) => (
-    <Label
-        style = {{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center'
-        }}
-    >
-        ¿No tienes cuenta? 
+    <RegisterLinkContainer>
+        <Label>
+            ¿No tienes cuenta? 
+        </Label>
         <TouchableOpacity
             onPress = { navigateToRegister }
         >
-        <Label
-            color = { lightTheme.primaryColor }
-            fontWeight = '500'
-            margin = '0 5px'
-        >
-            Crear una
-        </Label>
+            <Label
+                color = { lightTheme.primaryColor }
+                fontWeight = '500'
+                margin = '0 5px'
+                style = {{ marginTop: 'auto'}}
+            >
+                Crear una
+            </Label>
         </TouchableOpacity>
-    </Label>
+    </RegisterLinkContainer>
     
 )
 

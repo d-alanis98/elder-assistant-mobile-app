@@ -16,9 +16,7 @@ const HomeScreen: React.FC = () => {
     });
 
     return (
-        <ScreenContainer
-            title = 'Inicio'
-        >
+        <ScreenContainer>
             <PrimaryUserProtected>
                 <PrimaryUserScreen />
             </PrimaryUserProtected>

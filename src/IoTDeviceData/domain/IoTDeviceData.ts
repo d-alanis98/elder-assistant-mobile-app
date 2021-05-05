@@ -3,7 +3,7 @@ export interface IoTDeviceDataPrimitives {
     key: string,
     value: IoTDeviceDataType,
     deviceId: string,
-    issuedAt?: string,
+    issuedAt: string,
 }
 
 export type IoTDeviceDataType = string | Object;

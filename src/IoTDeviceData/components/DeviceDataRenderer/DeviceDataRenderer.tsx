@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 //Components
-import Label from '../../../Shared/components/Layout/Labels/Label';
+import EmptyData from '../../../Shared/components/Miscelaneous/EmptyData/EmptyData';
+import LoadingText from '../../../Shared/components/Loaders/LoadingText';
 import WidgetDataRenderer from './WidgetDataRenderer/WidgetDataRenderer';
 //Domain
 import { IoTDevicePrimitives } from '../../../IoTDevice/domain/IoTDevice';
 //Hooks
 import useDeviceData from '../../../Shared/store/hooks/deviceData/useDeviceData';
-
 
 interface DeviceDataRendererProps {
     devices: IoTDevicePrimitives[];
@@ -36,11 +36,11 @@ const DeviceDataRenderer: React.FC<DeviceDataRendererProps> = ({
     }, [devices]);
 
     if(devices.length === 0)
-        return <Label fontSize = {15} color='#777' style={{ alignSelf: 'center'}}>Sin datos</Label>
+        return <EmptyData />
 
 
     if(fetching)
-        return <Label>Loading...</Label>
+        return <LoadingText />
 
     //Render
     return (
