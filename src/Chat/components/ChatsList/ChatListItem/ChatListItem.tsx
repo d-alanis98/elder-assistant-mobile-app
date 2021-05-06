@@ -10,7 +10,6 @@ import {
     ChatListItemNewMessagesBadge,
     ChatListItemDescriptionContainer 
 } from './ChatListItem.styles';
-import Label from '../../../../Shared/components/Layout/Labels/Label';
 
 
 interface ChatListItemProps {
@@ -24,9 +23,11 @@ const ChatListItem: React.FC<ChatListItemProps> = ({
         <Avatar 
             size = { 50 }
         />
-        <ChatListItemName 
-            name = { chat.name }
-        />
+        <ChatListItemDescriptionContainer>
+            <ChatListItemName 
+                name = { chat.name }
+            />
+        </ChatListItemDescriptionContainer>
         <ChatListItemNewMessagesBadge 
             newMessages = { 0 }
         />
