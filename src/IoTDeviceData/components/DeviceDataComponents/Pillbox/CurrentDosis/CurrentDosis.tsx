@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 //Components
-import Button from '../../../../../Shared/components/Layout/Buttons/Button';
 import Pillbox from '../Pillbox/Pillbox';
 import DeviceDataWidget, { BaseWidgetProps } from '../../../DeviceDataWidget/DeviceDataWidget';
 //Styled components

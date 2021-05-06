@@ -1,17 +1,17 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+//Components
+import ScreenContainer from '../../../Shared/components/Screens/ScreenContainer';
+import ChatsList from '../ChatsList/ChatsList';
 
+const ChatScreen: React.FC = () => {
 
-const ChatScreen: React.FC = () => (
-    <View
-        style = {{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center'
-        }}
-    >
-        <Text>Chat</Text>
-    </View>
-);
+    return (
+        <ScreenContainer
+            title = 'Chat'
+        >
+            <ChatsList />
+        </ScreenContainer>
+    );
+}
 
 export default ChatScreen;

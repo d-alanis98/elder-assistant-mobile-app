@@ -19,7 +19,7 @@ const DeviceDataRenderer: React.FC<DeviceDataRendererProps> = ({
      * Hooks
      */
     //Device data
-    const { getLastDeviceData } = useDeviceData();
+    const { lastData, getLastDeviceData } = useDeviceData();
     const [fetching, setFetching] = React.useState(false)
 
     //Effects
@@ -35,9 +35,11 @@ const DeviceDataRenderer: React.FC<DeviceDataRendererProps> = ({
         });
     }, [devices]);
 
-    if(devices.length === 0)
+    if(
+        devices.length === 0 || 
+        Object.keys(lastData).length === 0
+    )
         return <EmptyData />
-
 
     if(fetching)
         return <LoadingText />

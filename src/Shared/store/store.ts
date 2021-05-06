@@ -2,12 +2,14 @@ import { compose, createStore, applyMiddleware, combineReducers, AnyAction } fro
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 //Reducers
 import userReducer, { restoreSessionAction } from './reducers/userDuck';
+import chatReducer from './reducers/chatDuck';
 import themeReducer from './reducers/themeDuck';
 import devicesReducer from './reducers/devicesDuck';
 import deviceDataReducer from './reducers/deviceDataDuck';
 
 const rootReducer = combineReducers({
     user: userReducer,
+    chat: chatReducer,
     theme: themeReducer,
     devices: devicesReducer, 
     deviceData: deviceDataReducer,
