@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import Pillbox from '../Pillbox/Pillbox';
 import DeviceDataWidget, { BaseWidgetProps } from '../../../DeviceDataWidget/DeviceDataWidget';
 //Styled components
-import { CurrentDosisCompleteButton, CurrentDosisContainer, CurrentDosisLabel, NextDosisContainer, NextDosisLabel, NextDosisRow, NextDosisTimeLabel } from './CurrentDosis.styles';
+import { CurrentDosisContainer, CurrentDosisLabel, NextDosisContainer, NextDosisLabel, NextDosisRow, NextDosisTimeLabel } from './CurrentDosis.styles';
+import LastUpdate from '../../../../../Shared/components/LastUpdate/LastUpdate';
 
 
 interface CurrentDosisProps extends BaseWidgetProps {
@@ -11,7 +12,7 @@ interface CurrentDosisProps extends BaseWidgetProps {
 }
 
 const CurrentDosis: React.FC<CurrentDosisProps> = ({ 
-    device,
+    event,
     eventData: currentDosis,
 }) => {
     /**
@@ -24,15 +25,16 @@ const CurrentDosis: React.FC<CurrentDosisProps> = ({
         //Validation
         if(!currentDosis || !currentDosis.schedule || !(currentDosis.schedule instanceof Object))
             return;
+        const numericSection = Number(currentDosis.section);
         //Definitions
         const getSchedule = () => {
-            return currentDosis.schedule[currentDosis.section];
+            return currentDosis.schedule[numericSection - 1];
         }
 
         const getNextSections = () => (
             Object.entries(currentDosis.schedule)
                 .filter(([sectionKey]) => (
-                    sectionKey > currentDosis.section
+                    Number(sectionKey) > numericSection - 1
                 ))
         );
 
@@ -53,7 +55,7 @@ const CurrentDosis: React.FC<CurrentDosisProps> = ({
             const [[nextSectionKey, nextSectionHour]] = sections;
             setNextSection({
                 hour: nextSectionHour,
-                section: getSectionLabel(nextSectionKey)
+                section: getSectionLabel(`Section_${ Number(nextSectionKey) + 1 }`)
             });
         }
 
@@ -62,23 +64,20 @@ const CurrentDosis: React.FC<CurrentDosisProps> = ({
         
     }, [currentDosis]);
 
+    const getCurrentSectionID = () => `Section_${ currentDosis.section }`;
+
 
     return (
         <DeviceDataWidget 
             icon = 'clock'
-            widgetTitle = { device.name }
+            widgetTitle = 'Pastillero'
         >
             <CurrentDosisContainer>
                 <CurrentDosisLabel>Dosis actual</CurrentDosisLabel>
                 <Pillbox 
-                    activeSection = { currentDosis.section }
+                    activeSection = { getCurrentSectionID() }
                 />
             </CurrentDosisContainer>
-            {
-                currentDosis.status === CurrentDosisStatus.PENDING
-                    ? <CompleteButton />
-                    : null
-            }
             <NextDosisContainer>
                 <NextDosisRow>
                     <NextDosisLabel>Próxima dosis: </NextDosisLabel>
@@ -89,23 +88,15 @@ const CurrentDosis: React.FC<CurrentDosisProps> = ({
                     <NextDosisTimeLabel>{ nextSection?.section }</NextDosisTimeLabel>
                 </NextDosisRow>
             </NextDosisContainer>
+            <LastUpdate 
+                issueDate = { event.issuedAt }
+            />
         </DeviceDataWidget>
     );
 }
 
 export default CurrentDosis;
 
-//Internal components
-const CompleteButton: React.FC = () => (
-    <CurrentDosisCompleteButton
-        icon = 'check'
-        type = 'primary'
-        color = '#fff'
-        onPress = { () => { } }
-        fontSize = { 17 }
-        buttonText = 'Marcar como tomado'
-    />
-)
 
 //Helpers
 interface CurrentSectionEventData {
