@@ -21,6 +21,8 @@ import styles from './App.styles';
 import usePushNotifications from './src/Shared/hooks/usePushNotifications';
 import configuration from './configuration';
 import useRegisterServices from './src/Shared/hooks/useRegisterServices';
+import { useNotificationServices } from './src/Shared/components/Notifications/hooks/useNotificationServices';
+import withWebSocketsContextProvider from './src/Shared/utils/WebSockets/context/HOC/withWebSocketsContextProvider';
 
 const App: React.FC = () => {
     //HOOKS
@@ -48,6 +50,7 @@ const App: React.FC = () => {
     //Custom hooks
     usePushNotifications();
     useRegisterServices();
+    useNotificationServices();
     //Store, to get the redux state
     const { theme: themeToApply } = useAppSelector(state => state.theme);
     //Render
@@ -68,8 +71,10 @@ const App: React.FC = () => {
     );
 }
 
+const AppWithWebSocketsProvider = withWebSocketsContextProvider(App);
+
 //We wrap the app in the state provider
-const AppWithStateProvider = () => <Provider store = { store }><App /></Provider>; 
+const AppWithStateProvider = () => <Provider store = { store }><AppWithWebSocketsProvider /></Provider>; 
 //We wrap the app in the navigation provider
 const AppWithNavigationProvider = () => (
     <NavigationContainer>

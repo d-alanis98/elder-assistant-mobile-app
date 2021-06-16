@@ -56,8 +56,8 @@ export default class WebSocketManager {
                 this.messageHandler(ev);
             }
             //We log the success result
-            console.debug('WS connected');
-            console.debug('Message handler set');
+            console.log('WS connected');
+            console.log('Message handler set');
             resolve();
         }
         this.webSocket.onerror = this.webSocket.onclose = () => {
@@ -71,8 +71,6 @@ export default class WebSocketManager {
      * @param authenticationToken Authentication JWT token.
      */
     authenticateConnection = async (authenticationToken: string): Promise<void> => {
-        if(JWTManager.isExpiredToken(authenticationToken))
-            throw new Error('Token has expired');
         this.sendMessage('Authentication', `Bearer ${ authenticationToken }`);
     }
 

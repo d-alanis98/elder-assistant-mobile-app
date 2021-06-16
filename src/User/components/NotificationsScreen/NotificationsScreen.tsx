@@ -6,6 +6,9 @@ import ScreenContainer from '../../../Shared/components/Screens/ScreenContainer'
 
 
 const NotificationsScreen: React.FC = () => {
+    /**
+     * Hooks
+     */
     return (
         <ScreenContainer
             title = 'Notificaciones'

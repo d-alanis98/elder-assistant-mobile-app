@@ -53,7 +53,7 @@ const usePushNotifications = () => {
             '/notifications/register-token',
             { deviceToken }
         )
-            .then(response => console.log(response.data))
+            .then(response => console.log('Registered for push notifications'))
             .catch(error => alert(error.message))
     }, [deviceToken]);
 }

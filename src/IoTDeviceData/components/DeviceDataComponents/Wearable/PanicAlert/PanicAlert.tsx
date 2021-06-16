@@ -10,6 +10,7 @@ import { Audio } from 'expo-av';
 import configuration from '../../../../../../configuration';
 import TouchableIcon from '../../../../../Shared/components/Layout/Icons/TouchableIcon/TouchableIcon';
 import ThemeUtils from '../../../../../Shared/utils/Theme/ThemeUtils';
+import LastUpdate from '../../../../../Shared/components/LastUpdate/LastUpdate';
 
 interface PanicAlertProps extends BaseWidgetProps {
     eventData: string;
@@ -30,6 +31,9 @@ const PanicAlert: React.FC<PanicAlertProps> = ({
                 event = { event }
                 device = { device }
                 eventData = { eventData }
+            />
+            <LastUpdate 
+                issueDate = { event.issuedAt }
             />
         </DeviceDataWidget>
     )
@@ -84,7 +88,7 @@ const PanicAlertRenderer: React.FC<PanicAlertProps> = ({
     
 
 
-    if(!isAlertAttended(event._id))
+    if(isAlertAttended(event._id))
         return null;
     return (
         <>
@@ -97,9 +101,9 @@ const PanicAlertRenderer: React.FC<PanicAlertProps> = ({
                     { isPlaying ? 'Reproduciendo...' : 'Reproducir audio' }
                 </AudioLabel>
             </AudioContainer>
-            <Label>
+            <LocationLabel>
                 Ubicación de la alerta: 
-            </Label>
+            </LocationLabel>
             <Map 
                 lat = { getLocation().lat }
                 lon = { getLocation().lon }
@@ -110,6 +114,9 @@ const PanicAlertRenderer: React.FC<PanicAlertProps> = ({
     )
 }
 
+const LocationLabel = styled(Label)`
+    margin-bottom: 10px;
+`;
 
 const AudioIcon = styled(TouchableIcon)`
     margin-right: auto;
@@ -119,7 +126,11 @@ const AudioIcon = styled(TouchableIcon)`
 const AudioLabel = styled(Label)`
     margin-left: 10px;
     margin-right: 10px;
-    color: #666;
+    color: ${({ theme }) => ThemeUtils.getValueBasedOnTheme(
+        theme,
+        '#666',
+        '#ddd'
+    ) };
     font-size: 16px;
 `;
 
@@ -131,6 +142,8 @@ const AudioContainer = styled.View`
     align-items: center;
     justify-content: center;
     padding: 2px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     border-radius: 25px;
     background-color: ${({ theme }) => ThemeUtils.getThemedTranslucidBackground(theme, 0.1) };
 `;

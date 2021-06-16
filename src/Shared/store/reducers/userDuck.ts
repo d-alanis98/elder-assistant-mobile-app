@@ -281,6 +281,7 @@ export const logoutAction = (): ThunkAppAction => (dispatch, getState) => {
         type: 'WARNING',
         message: 'Se cerró la sesión'
     })(dispatch, getState, null);
+    console.log('Logged out')
 }
 
 /**

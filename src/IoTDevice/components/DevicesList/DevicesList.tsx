@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 //Components
 import DeviceIcon from '../DeviceIcon/DeviceIcon';
 //Styled components
-import { DeviceName, DeviceRefreshButton, DeviceSettings, DevicesListContainer, DevicesListItem } from './DevicesList.styles';
+import { DeviceName, DeviceRefreshButton, DevicesListContainer, DevicesListItem } from './DevicesList.styles';
 //Hooks
 import useDevices from '../../../Shared/store/hooks/devices/useDevices';
 
@@ -40,7 +40,6 @@ const DevicesList: React.FC<DevicesListProps> = ({
                             deviceType = { type }
                         />
                         <DeviceName>{ name }</DeviceName>
-                        <DeviceSettings />
                     </DevicesListItem>
                 ))
             }
