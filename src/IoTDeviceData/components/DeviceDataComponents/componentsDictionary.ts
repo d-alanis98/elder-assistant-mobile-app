@@ -9,6 +9,7 @@ import { BaseWidgetProps } from '../DeviceDataWidget/DeviceDataWidget';
 //Components
 import Location from './Wearable/Location/Location';
 import CurrentDosis from './Pillbox/CurrentDosis/CurrentDosis';
+import PanicAlert from './Wearable/PanicAlert/PanicAlert';
 
 type DataComponentsDictionary = {
     [IoTDeviceTypes in string]: { 
@@ -21,7 +22,8 @@ export const deviceDataComponents: DataComponentsDictionary = {
         CurrentDosis: CurrentDosis
     },
     [IoTDeviceTypes.WEARABLE]: {
-        Location: Location
+        Location: Location,
+        PanicAlert: PanicAlert
     }
 }
 

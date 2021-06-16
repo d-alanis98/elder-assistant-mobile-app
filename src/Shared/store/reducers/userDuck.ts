@@ -1,17 +1,25 @@
 import { AnyAction } from 'redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //Domain
-import { UserData, ValidUserTypes } from '../../../User/domain/User';
+import { UserData, UserPrimitives, ValidUserTypes } from '../../../User/domain/User';
 //Domain exceptions
 import SessionNotFound from '../../../UserAuthentication/domain/exceptions/SessionNotFound';
 //Infrastructure
 import { login } from '../../../UserAuthentication/infrastructure/userAuthenticationApi';
 //Thunk action base type
 import { ThunkAppAction } from '../store';
+//External actions
+import { hideModalAction } from './modalDuck';
+import { setThemeAction } from './themeDuck';
+import { createAlertAction } from './alertsDuck';
+//Constants
+import { ValidThemes } from '../../components/Theme/constants/ThemeParameters';
+//API
+import { getUserByID, getUsersByName } from '../../../User/infrastructure/api/usersApi';
 
 /**
  * @author Damián Alanís Ramírez
- * @version 1.1.1
+ * @version 1.3.1
  * @description Specification of the users reducer, containing action types, the
  * reducer itself and the action functions.
  */
@@ -23,8 +31,12 @@ import { ThunkAppAction } from '../store';
 //Action types
 const LOGIN                 = 'LOGIN';
 const LOGOUT                = 'LOGOUT';
+const GET_USERS             = 'GET_USERS';
 const LOGIN_ERROR           = 'LOGIN_ERROR';
 const LOGIN_SUCCESS         = 'LOGIN_SUCCESS';
+const GET_USERS_ERROR       = 'GET_USERS_ERROR';
+const GET_USERS_SUCCESS     = 'GET_USERS_SUCCESS';
+const SET_CURRENT_SCREEN    = 'SET_CURRENT_SCREEN';
 const REFRESH_TOKEN_ERROR   = 'REFRESH_TOKEN_ERROR';
 const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
 //Other constants
@@ -33,32 +45,44 @@ const TOKEN_KEY         = 'TOKEN';
 const REFRESH_TOKEN_KEY = 'REFRESH_TOKEN';
 //Initial state
 interface UserState extends UserData {
+    _id: string;
     name: string;
     type: ValidUserTypes;
     error?: string;
+    email: string;
+    users: UserPrimitives[];
     token: string;
     loading: boolean;
     loggedIn: boolean;
     lastName: string;
+    nextUsers?: string | null;
     dateOfBirth: string;
+    currentScreen: string;
+    usersDictionary: UsersDictionary;
 };
 
 const initialState: UserState = {
+    _id: '',
     name: '',
     type: ValidUserTypes.SECONDARY,
+    email: '',
+    users: [],
     token: '',
     loading: false,
     loggedIn: false,
     lastName: '',
+    nextUsers: undefined,
     dateOfBirth: '',
-    refreshToken: ''
+    refreshToken: '',
+    currentScreen: '',
+    usersDictionary: { },
 };
 
 /**
  * Reducer
  */
 
-const reducer = (state = initialState, action: AnyAction) => {
+const reducer = (state = initialState, action: AnyAction): UserState => {
     const { type, payload } = action;
 
     switch(type) {
@@ -69,6 +93,11 @@ const reducer = (state = initialState, action: AnyAction) => {
             };
         case LOGOUT:
             return initialState;
+        case GET_USERS:
+            return {
+                ...state,
+                loading: true,
+            };
         case LOGIN_ERROR:
             return {
                 ...state,
@@ -82,6 +111,23 @@ const reducer = (state = initialState, action: AnyAction) => {
                 ...userData,
                 loading: false,
                 loggedIn: true,
+            };
+        case GET_USERS_ERROR: 
+            return {
+                ...state,
+                error: payload,
+                loading: false,
+            };
+        case GET_USERS_SUCCESS:
+            return {
+                ...state,
+                ...payload,
+                loading: false,
+            };
+        case SET_CURRENT_SCREEN:
+            return {
+                ...state,
+                currentScreen: payload
             };
         case REFRESH_TOKEN_ERROR:
             return {
@@ -112,7 +158,7 @@ export default reducer;
  * @param {FormData|Object} data The credentials object or form data.
  * @returns 
  */
-export let loginAction = (data: FormData | Object): ThunkAppAction<Promise<void>> => async dispatch => {
+export const loginAction = (data: FormData | Object): ThunkAppAction<Promise<void>> => async (dispatch, _) => {
     try {
         const { user, token, refreshToken } = await login(data);
         //We save the tokens in the storage
@@ -128,8 +174,18 @@ export let loginAction = (data: FormData | Object): ThunkAppAction<Promise<void>
                 refreshToken
             }
         });
-        
+        //We create the login success system alert
+        createAlertAction({
+            type: 'SUCCESS',
+            message: 'Sesión iniciada'
+        })(dispatch, _, null);
     } catch(error) {
+        //We create the system alert
+        createAlertAction({
+            type: 'DANGER',
+            message: error.message
+        })(dispatch, _, null);
+        //We dispatch the login error
         dispatch({
             type: LOGIN_ERROR,
             payload: error.message,
@@ -142,7 +198,7 @@ export let loginAction = (data: FormData | Object): ThunkAppAction<Promise<void>
  * LOGIN_SUCCESS action if it succeeds, otherwise it dispatchs the LOGIN_ERROR action with a custom exception SessionNotFound.
  * @returns 
  */
-export let restoreSessionAction = (): ThunkAppAction => async dispatch => {
+export const restoreSessionAction = (): ThunkAppAction => async (dispatch, _) => {
     try {
         //We get the data from the local storage
         const user = await AsyncStorage.getItem(USER_KEY);
@@ -162,7 +218,18 @@ export let restoreSessionAction = (): ThunkAppAction => async dispatch => {
                 refreshToken
             }
         });
+        //We create the restore session success system alert
+        createAlertAction({
+            type: 'SUCCESS',
+            message: 'Sesión restaurada'
+        })(dispatch, _, null);
     } catch(error) {
+        //We create the system alert
+        createAlertAction({
+            type: 'DANGER',
+            message: error.message
+        })(dispatch, _, null);
+        //We dispatch the login error
         dispatch({
             type: LOGIN_ERROR,
             payload: error.message,
@@ -175,7 +242,7 @@ export let restoreSessionAction = (): ThunkAppAction => async dispatch => {
  * @param {string} newToken The new authorization token.
  * @returns 
  */
-export let updateAuthTokenAction = (newToken: string): ThunkAppAction => async dispatch => {
+export const updateAuthTokenAction = (newToken: string): ThunkAppAction => async (dispatch, _) => {
     try {
         await AsyncStorage.setItem(TOKEN_KEY, newToken);
         //We dispatch the action with the new token as payload
@@ -184,11 +251,16 @@ export let updateAuthTokenAction = (newToken: string): ThunkAppAction => async d
             payload: newToken,
         });
     } catch(error) {
+        //We dispatch the token error
         dispatch({
             type: REFRESH_TOKEN_ERROR,
             payload: error.message,
         });
-        //Set session expired action
+        //We create the error system alert
+        createAlertAction({
+            type: 'DANGER',
+            message: error.message
+        })(dispatch, _, null);
     }
 }
 
@@ -196,21 +268,123 @@ export let updateAuthTokenAction = (newToken: string): ThunkAppAction => async d
  * Action to logout the user, clears the state and the storage.
  * @returns 
  */
-export let logoutAction = (): ThunkAppAction => dispatch => {
+export const logoutAction = (): ThunkAppAction => (dispatch, getState) => {
     dispatch({
         type: LOGOUT,
     });
     clearStorage();
-    //Create notification (logout)
+    //We return to the defaults
+    hideModalAction()(dispatch, getState, undefined);
+    setThemeAction(ValidThemes.LIGHT_THEME)(dispatch, getState, undefined);
+    //We create the system alert
+    createAlertAction({
+        type: 'WARNING',
+        message: 'Se cerró la sesión'
+    })(dispatch, getState, null);
 }
 
 /**
  * Action to logout the user with a session expired message.
  * @returns 
  */
-export let sessionExpiredAction = (): ThunkAppAction => (dispatch, getState) => {
+export const sessionExpiredAction = (): ThunkAppAction => (dispatch, getState) => {
     logoutAction()(dispatch, getState, null);
-    //Create notification actio (session expired)
+    //We create the alert
+    createAlertAction({
+        type: 'WARNING',
+        message: 'La sesión expiró'
+    })(dispatch, getState, null);
+} 
+
+/**
+ * Action to set the current screen.
+ * @param {string} currentScreen Current screen.
+ * @returns 
+ */
+export const setCurrentScreenAction = (
+    currentScreen: string
+): ThunkAppAction => (dispatch, _) => {
+    dispatch({
+        type: SET_CURRENT_SCREEN,
+        payload: currentScreen
+    });
+}
+
+/**
+ * Action to get the users by name.
+ * @param {string} name User name.
+ * @returns 
+ */
+export const getUsersByNameAction = (
+    name: string
+): ThunkAppAction => async (dispatch, getState) => {
+    //We dispath the loading action
+    dispatch({
+        type: GET_USERS
+    });
+    try {
+        //We get the starting point from state
+        const startingAt = getState().user.nextUsers || '';
+        //We request the users via the API method
+        const paginatedUsers = await getUsersByName({ name, startingAt });
+        dispatch({
+            type: GET_USERS_SUCCESS,
+            payload: {
+                users: paginatedUsers.data,
+                nextUsers: paginatedUsers.next,
+                usersDictionary: getUpdatedUsersDictionary(
+                    paginatedUsers.data,
+                    getState().user.usersDictionary
+                )
+            }
+        });
+    } catch(error) {
+        createAlertAction({
+            type: 'DANGER',
+            message: error.message
+        })(dispatch, getState, null);
+        dispatch({
+            type: GET_USERS_ERROR,
+            payloaD: error.message
+        });
+    }
+}
+
+/**
+ * Action to get the user data by ID, it performs a search in the users dictionary, if no entry is found the data is requested
+ * to the API and then saved to the dictionary for future queries.
+ * @param {string} userId User ID.
+ * @returns 
+ */
+export const getUserByIdAction = (userId: string): ThunkAppAction<Promise<UserPrimitives>> => async (dispatch, getState) => {
+    //First, we verify if the user does not exists in the dictionary
+    const { usersDictionary } = getState().user;
+    const foundUser = usersDictionary[userId];
+    if(foundUser)
+        return foundUser;
+    //If the user is not found in the existing dictionary, we request the user to the API
+    try {
+        const userData = await getUserByID(userId);
+        //We update the users dictionary
+        dispatch({
+            type: GET_USERS_SUCCESS,
+            payload: {
+                usersDictionary: getUpdatedUsersDictionary(
+                    [ userData ],
+                    getState().user.usersDictionary
+                )  
+            }
+        });
+        //We return the value
+        return userData;
+    } catch(error) {
+        //We create the system alert
+        createAlertAction({
+            type: 'DANGER',
+            message: error.message
+        })(dispatch, getState, null);
+        return Promise.reject(error.message);
+    }
 } 
 
 /**
@@ -224,4 +398,26 @@ const clearStorage = async () => {
     await AsyncStorage.removeItem(USER_KEY);
     await AsyncStorage.removeItem(TOKEN_KEY);
     await AsyncStorage.removeItem(REFRESH_TOKEN_KEY);
+}
+
+/**
+ * Function to add a collection of users to the users dictionary. Getting this updated dictionary.
+ * @param {UserPrimitives[]} usersToAdd Users to add to the dictionary.
+ * @param {UsersDictionary} previousUsersDictionary Existing users dictionary.
+ * @returns {UsersDictionary}
+ */
+const getUpdatedUsersDictionary = (
+    usersToAdd: UserPrimitives[],
+    previousUsersDictionary: UsersDictionary
+) => ({
+    ...previousUsersDictionary,
+    ...usersToAdd.reduce((accumulated, current) => ({
+        ...accumulated,
+        [current._id]: current
+    }), {})
+});
+
+//Types
+interface UsersDictionary {
+    [userId: string]: UserPrimitives;
 }

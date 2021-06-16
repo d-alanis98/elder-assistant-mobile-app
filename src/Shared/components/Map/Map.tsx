@@ -48,11 +48,7 @@ const Map: React.FC<MapProps> = ({
                         latitude: lat,
                         longitude: lon
                     }}
-                >
-                    <Avatar 
-                        size = { 50 }
-                    />
-                </Marker>
+                />
             </StyledMap>
         </MapContainer>
     );

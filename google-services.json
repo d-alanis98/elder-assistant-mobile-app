@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "160942859810",
+    "project_id": "elder-assistant",
+    "storage_bucket": "elder-assistant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160942859810:android:f3d21a1eb442f1a2aa8c7b",
+        "android_client_info": {
+          "package_name": "com.damian.elder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160942859810-hkdmi8i4fd1pl3tkqqhn1vflma35ltnb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBv26-ouUSDRznFkTo6A-X5qX3p0G3fLqc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160942859810-hkdmi8i4fd1pl3tkqqhn1vflma35ltnb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

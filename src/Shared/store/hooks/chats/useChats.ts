@@ -21,7 +21,7 @@ const useChats = () => {
     //Effects
     useEffect(() => {
         dispatch(getChatsAction());
-    }, []);
+    }, [dispatch]);
 
     return { 
         chats: chats as ChatPrimitives[], 

@@ -18,6 +18,9 @@ import { ThemeProvider } from 'styled-components/native';
 import AxiosRequest from './src/Shared/infrastructure/Requests/AxiosRequest';
 //Styles
 import styles from './App.styles';
+import usePushNotifications from './src/Shared/hooks/usePushNotifications';
+import configuration from './configuration';
+import useRegisterServices from './src/Shared/hooks/useRegisterServices';
 
 const App: React.FC = () => {
     //HOOKS
@@ -34,7 +37,7 @@ const App: React.FC = () => {
         //We set some properties
         AxiosRequest.token = token;
         AxiosRequest.loggedIn = loggedIn;
-        AxiosRequest.baseURL = 'http://192.168.1.94:3000';
+        AxiosRequest.baseURL = configuration.SERVER_URL;
         AxiosRequest.refreshToken = refreshToken;
         AxiosRequest.onRequestError = new RequestErrorHandler(dispatch).handle;
         AxiosRequest.onNewAuthToken = new OnUpdatedAuthToken(dispatch).handle;
@@ -43,6 +46,8 @@ const App: React.FC = () => {
         
     }, [token, loggedIn, refreshToken]);
     //Custom hooks
+    usePushNotifications();
+    useRegisterServices();
     //Store, to get the redux state
     const { theme: themeToApply } = useAppSelector(state => state.theme);
     //Render

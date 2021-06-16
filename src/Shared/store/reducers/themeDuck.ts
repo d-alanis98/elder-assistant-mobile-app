@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AnyAction } from 'redux'
 //Properties
 import { themeToApply } from '../../components/Theme/constants/theme';
@@ -21,6 +22,8 @@ const initialState: ThemeState = {
     type:  ValidThemes.LIGHT_THEME,
     theme: defaultThemeParameters
 }
+//Others
+const CURRENT_THEME_KEY = 'CURRENT_THEME_KEY';
 
 /**
  * Reducer
@@ -43,6 +46,24 @@ export default reducer;
 /**
  * Actions
  */
+
+/**
+ * Method to set the theme to apply at state level.
+ * @param {ValidThemes} themeType Theme to be applied.
+ * @returns 
+ */
+export let setThemeAction = (themeType: ValidThemes): ThunkAppAction => dispatch => {
+    dispatch({
+        type: SET_THEME,
+        payload: {
+            type: themeType,
+            theme: themeToApply(themeType)
+        }
+    });
+    //We persist the theme preferences
+    setThemeInLocalStorage(themeType);
+} 
+
 /**
  * Action to toggle the current theme.
  * @returns New state
@@ -53,13 +74,38 @@ export let toggleThemeAction = (): ThunkAppAction => (dispatch, getState) => {
     const themeType = type === ValidThemes.LIGHT_THEME 
     ? ValidThemes.DARK_THEME 
     : ValidThemes.LIGHT_THEME;
-    //We get the theme data
-    const updatedTheme = themeToApply(themeType);
-    dispatch({
-        type: SET_THEME,
-        payload: {
-            type: themeType,
-            theme: updatedTheme,
-        }
-    });
+    //We dispatch the set theme action
+    setThemeAction(themeType)(dispatch, getState, null);
 }
+
+/**
+ * Action to restore the theme from the local storage.
+ * @returns 
+ */
+export let restoreThemeAction = (): ThunkAppAction => async (dispatch, getState) => {
+    const appliedTheme = await getThemeFromLocalStorage();
+    //We validate the applied theme existance
+    if(!appliedTheme)
+        return;
+    //We set the theme to restore the user preferences
+    setThemeAction(appliedTheme as ValidThemes)(dispatch, getState, null);
+}
+
+/**
+ * Helpers
+ */
+/**
+ * Helper function to persist the applied theme in the local storage.
+ * @param {ValidThemes} themeToApply Theme to persist.
+ */
+const setThemeInLocalStorage = async (themeToApply: ValidThemes) => {
+    await AsyncStorage.setItem(CURRENT_THEME_KEY, themeToApply.toString());
+}
+
+/**
+ * Helper function to persisted applied theme data from the local storage.
+ * @returns {ValidThemes} Persisted theme data.
+ */
+const getThemeFromLocalStorage = async () => (
+    await AsyncStorage.getItem(CURRENT_THEME_KEY)
+);

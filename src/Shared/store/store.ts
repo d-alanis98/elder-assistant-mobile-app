@@ -1,18 +1,32 @@
-import { compose, createStore, applyMiddleware, combineReducers, AnyAction } from 'redux';
+import { 
+    compose,
+    AnyAction,
+    createStore, 
+    applyMiddleware, 
+    combineReducers
+} from 'redux';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 //Reducers
 import userReducer, { restoreSessionAction } from './reducers/userDuck';
 import chatReducer from './reducers/chatDuck';
-import themeReducer from './reducers/themeDuck';
+import modalReducer from './reducers/modalDuck';
+import themeReducer, { restoreThemeAction } from './reducers/themeDuck';
+import alertsReducer from './reducers/alertsDuck';
 import devicesReducer from './reducers/devicesDuck';
-import deviceDataReducer from './reducers/deviceDataDuck';
+import deviceDataReducer, { restoreAttendedPanicAlertsDictionary } from './reducers/deviceDataDuck';
+import subscriptionsReducer from './reducers/subscriptionsDuck';
+import notificationsReducer, { restoreViewedNotificationsAction } from './reducers/notificationsDuck';
 
 const rootReducer = combineReducers({
     user: userReducer,
     chat: chatReducer,
+    modal: modalReducer,
     theme: themeReducer,
+    alerts: alertsReducer,
     devices: devicesReducer, 
     deviceData: deviceDataReducer,
+    notifications: notificationsReducer,
+    subscriptions: subscriptionsReducer
 });
 
 const generateStore = () => {
@@ -22,6 +36,9 @@ const generateStore = () => {
     );
 
     restoreSessionAction()(store.dispatch, store.getState, undefined);
+    restoreThemeAction()(store.dispatch, store.getState, null);
+    restoreViewedNotificationsAction()(store.dispatch, store.getState, null);
+    restoreAttendedPanicAlertsDictionary()(store.dispatch, store.getState, null);
     return store;
 }
 

@@ -1,13 +1,19 @@
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react';
+//Domain
+import { IoTDeviceDataPrimitives } from '../../../../IoTDeviceData/domain/IoTDeviceData';
 //Hooks
 import { useAppDispatch, useAppSelector } from '..';
 //Actions
-import { getLastDeviceDataAction, getLastDeviceDataWithLoaderAction } from '../../reducers/deviceDataDuck';
+import { 
+    getLastDeviceDataAction, 
+    updateLastDeviceDataAction,
+    getLastDeviceDataWithLoaderAction 
+} from '../../reducers/deviceDataDuck';
 
 
 /**
  * @author Damián Alanís Ramírez
- * @version 1.1.1
+ * @version 2.4.2
  * @description Custom hooks to access the device data state and actions.
  */
 const useDeviceData = (deviceId?: string) => {
@@ -19,18 +25,29 @@ const useDeviceData = (deviceId?: string) => {
     //Redux state selector
     const { lastData, fetching } = useAppSelector(state => state.deviceData);
 
+    //Effects
     useEffect(() => {
         deviceId &&
-            dispatch(Object.keys(lastData).length === 0
-                ? getLastDeviceDataWithLoaderAction(deviceId)
-                : getLastDeviceDataAction(deviceId)
-            );
-    }, []);
+            dispatch(getLastDeviceDataWithLoaderAction(deviceId));
+    }, [deviceId, dispatch]);
+
+    //Callbacks
+    const getLastDeviceData = useCallback((
+        deviceId: string, 
+        ownerUserId?: string
+    ) => (
+        dispatch(getLastDeviceDataAction(deviceId, ownerUserId))
+    ), [dispatch]);
+
+    const updateLastDeviceData = useCallback((deviceData: IoTDeviceDataPrimitives) => {
+        dispatch(updateLastDeviceDataAction(deviceData));
+    }, [dispatch]);
 
     return {
         fetching,
         lastData,
-        getLastDeviceData: (deviceId: string) => dispatch(getLastDeviceDataAction(deviceId))
+        getLastDeviceData,
+        updateLastDeviceData
     }
 }
 
